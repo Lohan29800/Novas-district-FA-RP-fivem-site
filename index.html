@@ -115,6 +115,7 @@
             <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-gray-300">
                 <a href="#accueil" class="hover:text-accent transition">Accueil</a>
                 <a href="#presentation" class="hover:text-accent transition">Le Serveur</a>
+                <a href="#boutique" class="hover:text-accent transition">Boutique & Tarifs</a>
                 <a href="#features" class="hover:text-accent transition">Fonctionnalités</a>
                 <a href="#faq" class="hover:text-accent transition">FAQ</a>
                 <a href="#support" class="hover:text-accent transition">Support</a>
@@ -142,7 +143,7 @@
                 <a href="fivem://connect/51.159.213.165:30001" class="px-4 py-2.5 rounded-xl bg-accent hover:opacity-90 text-white text-xs font-bold shadow-lg shadow-accent/30 transition flex items-center">
                     <i class="fa-solid fa-play sm:mr-2"></i> <span class="hidden sm:inline">Rejoindre</span>
                 </a>
-                <a href="admin.html" class="px-3 py-2.5 rounded-xl bg-purple-600/20 border border-purple-500/40 hover:bg-purple-600 text-purple-300 hover:text-white text-xs font-bold transition flex items-center shadow-md" title="Panel Admin">
+                <a href="admin.html" class="px-3.5 py-2.5 rounded-xl bg-purple-600/20 border border-purple-500/40 hover:bg-purple-600 text-purple-300 hover:text-white text-xs font-bold transition flex items-center shadow-md" title="Panel Admin">
                     <i class="fa-solid fa-gauge"></i>
                 </a>
             </div>
@@ -226,6 +227,20 @@
                     <h3 class="text-lg font-black">Légal & Secours</h3>
                     <p class="text-xs text-gray-400 leading-relaxed">Recrutements ouverts pour les forces de l'ordre, les services de santé et les différentes entreprises de la ville.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- SECTION BOUTIQUE & 5 TARIFS -->
+        <section id="boutique" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/50">
+            <div class="text-center mb-12 space-y-2">
+                <span class="text-accent text-xs font-bold uppercase tracking-widest">Soutenez le Projet</span>
+                <h2 class="text-2xl sm:text-3xl font-black">Boutique & Formules Exclusives</h2>
+                <p class="text-xs sm:text-sm text-gray-400">Profitez de nos offres aux prix avantageux pour booster votre aventure en ville.</p>
+            </div>
+            
+            <!-- Grille dynamique des 5 tarifs -->
+            <div id="public-tariffs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Les cartes injectées par JavaScript -->
             </div>
         </section>
 
@@ -343,11 +358,18 @@
             { title: "Ambiance Chill #3", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
         ];
 
+        const defaultTariffs = [
+            { title: "Pack Débutant (Starter RP)", price: "3,005 XOF", desc: "50 000 $ en jeu + 1 Véhicule compact importé + Permis de conduire offerts." },
+            { title: "Formule Citoyen Actif", price: "6,010 XOF", desc: "150 000 $ en jeu + 1 Véhicule sport/berline au choix + 1 Masque exclusif boutique." },
+            { title: "Pass VIP Silver (1 Mois)", price: "9,015 XOF", desc: "Priorité modérée à la connexion + Plaque personnalisée + 200 000 $ de salaire bonus." },
+            { title: "Pack Entreprise / Gang", price: "15,025 XOF", desc: "Aide à l'intégration d'un mapping/vêtement + 500 000 $ sur le compte de l'organisation." },
+            { title: "Accès VIP Gold Permanent", price: "21,035 XOF", desc: "Statut VIP à vie + Priorité max file d'attente + Garage VIP exclusif + Accessoire réservé." }
+        ];
+
         let currentTrackIndex = 0;
         let siteAudio = null;
 
         window.addEventListener('DOMContentLoaded', () => {
-            // Charger le thème enregistré (Chantier, Gaming, etc.)
             const savedTheme = localStorage.getItem('site_theme');
             if(savedTheme && savedTheme !== 'default') {
                 document.documentElement.setAttribute('data-theme', savedTheme);
@@ -378,6 +400,8 @@
                 banner.classList.remove('hidden');
             }
 
+            loadPublicTariffs();
+
             const customUrl = localStorage.getItem('fivem_web_music_url');
             if(customUrl) {
                 siteAudio = new Audio(customUrl);
@@ -389,7 +413,27 @@
             siteAudio.loop = true;
         });
 
-        // Fonction pour changer le thème du site
+        function loadPublicTariffs() {
+            const container = document.getElementById('public-tariffs-grid');
+            const tariffs = JSON.parse(localStorage.getItem('fivem_tariffs')) || defaultTariffs;
+            container.innerHTML = '';
+
+            tariffs.forEach((t) => {
+                container.innerHTML += `
+                    <div class="bg-cardbg border border-gray-800 hover:border-accent/40 p-6 rounded-2xl shadow-xl flex flex-col justify-between space-y-4 transition group">
+                        <div class="space-y-2">
+                            <h3 class="text-base font-black text-white">${t.title}</h3>
+                            <div class="text-xl font-black text-accent">${t.price}</div>
+                            <p class="text-xs text-gray-400 leading-relaxed">${t.desc}</p>
+                        </div>
+                        <a href="https://discord.gg/V52JyPEkFc" target="_blank" class="w-full py-2.5 rounded-xl bg-darkbg border border-gray-800 group-hover:border-accent text-gray-300 group-hover:text-white text-xs font-bold text-center transition">
+                            Obtenir sur le Discord
+                        </a>
+                    </div>
+                `;
+            });
+        }
+
         function setTheme(themeName) {
             if(themeName === 'default') {
                 document.documentElement.removeAttribute('data-theme');
