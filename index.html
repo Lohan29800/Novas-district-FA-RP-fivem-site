@@ -24,7 +24,7 @@
         }
     </script>
     <style>
-        /* Définition des thèmes dynamiques (variables CSS) */
+        /* Variables globales Classiques */
         :root {
             --bg-main: #070a13;
             --bg-card: #0f172a;
@@ -32,10 +32,34 @@
             --color-accent: #6366f1;
             --color-accent-hover: #4f46e5;
             --border-theme: rgba(99, 102, 241, 0.3);
-            --gradient-primary: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
         }
 
-        /* Thème Gaming (Rouge/Sombre agressif) */
+        /* Thème Chantier (Jaune & Noir avec animations de bandes rayées) */
+        [data-theme="chantier"] {
+            --bg-main: #12110d;
+            --bg-card: #1f1c14;
+            --bg-card-hover: #2e291c;
+            --color-accent: #f59e0b;
+            --color-accent-hover: #d97706;
+            --border-theme: rgba(245, 158, 11, 0.5);
+        }
+
+        /* Animation spécifique pour l'ambiance chantier */
+        [data-theme="chantier"] body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 6px;
+            background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 20px, #000 20px, #000 40px);
+            z-index: 9999;
+            animation: moveStripes 3s linear infinite;
+        }
+
+        @keyframes moveStripes {
+            0% { background-position: 0 0; }
+            100% { background-position: 80px 0; }
+        }
+
+        /* Thème Gaming */
         [data-theme="gaming"] {
             --bg-main: #0c0808;
             --bg-card: #180f0f;
@@ -43,10 +67,9 @@
             --color-accent: #ef4444;
             --color-accent-hover: #dc2626;
             --border-theme: rgba(239, 68, 68, 0.4);
-            --gradient-primary: linear-gradient(to right, #ef4444, #f97316, #eab308);
         }
 
-        /* Thème Chill (Bleu pastel / Doux) */
+        /* Thème Chill */
         [data-theme="chill"] {
             --bg-main: #061118;
             --bg-card: #0d1b2a;
@@ -54,10 +77,9 @@
             --color-accent: #38bdf8;
             --color-accent-hover: #0ea5e9;
             --border-theme: rgba(56, 189, 248, 0.4);
-            --gradient-primary: linear-gradient(to right, #38bdf8, #818cf8, #34d399);
         }
 
-        /* Thème Néon (Cyberpunk / Rose & Cyan) */
+        /* Thème Néon */
         [data-theme="neon"] {
             --bg-main: #05020a;
             --bg-card: #120721;
@@ -65,7 +87,6 @@
             --color-accent: #f43f5e;
             --color-accent-hover: #e11d48;
             --border-theme: rgba(244, 63, 94, 0.5);
-            --gradient-primary: linear-gradient(to right, #f43f5e, #a855f7, #06b6d4);
         }
     </style>
 </head>
@@ -82,11 +103,11 @@
     <header class="sticky top-0 z-40 bg-darkbg/85 backdrop-blur-md border-b border-gray-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="index.html" class="flex items-center space-x-3 group focus:outline-none">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-accent via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-accent/30 group-hover:scale-105 transition">
+                <div class="w-11 h-11 rounded-xl bg-accent flex items-center justify-center shadow-lg shadow-accent/30 group-hover:scale-105 transition">
                     <i class="fa-solid fa-gamepad text-white text-lg"></i>
                 </div>
                 <div>
-                    <span id="header-brand-name" class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent block">NOMDU<span class="text-accent">SERVEUR</span></span>
+                    <span id="header-brand-name" class="text-xl font-black tracking-wider text-white block">NOMDU<span class="text-accent">SERVEUR</span></span>
                     <span id="header-server-status" class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold block -mt-1">● Serveur En Ligne</span>
                 </div>
             </a>
@@ -100,14 +121,15 @@
             </nav>
 
             <div class="flex items-center space-x-2 sm:space-x-3">
-                <!-- SÉLECTEUR DE THÈMES -->
+                <!-- SÉLECTEUR DE THÈMES DIRECT -->
                 <div class="relative group">
                     <button class="px-3.5 py-2.5 rounded-xl bg-cardbg border border-gray-800 hover:border-accent text-gray-300 hover:text-white text-xs font-bold transition flex items-center shadow-sm" title="Changer le style du site">
                         <i class="fa-solid fa-palette mr-1.5 text-accent"></i> <span class="hidden sm:inline">Style</span>
                     </button>
                     <!-- Menu déroulant des thèmes -->
-                    <div class="absolute right-0 mt-2 w-40 bg-cardbg border border-gray-800 rounded-xl shadow-2xl py-2 hidden group-hover:block z-50">
+                    <div class="absolute right-0 mt-2 w-44 bg-cardbg border border-gray-800 rounded-xl shadow-2xl py-2 hidden group-hover:block z-50">
                         <button onclick="setTheme('default')" class="w-full text-left px-4 py-2 text-xs font-bold text-gray-300 hover:bg-cardhover hover:text-white flex items-center"><i class="fa-solid fa-moon w-5 mr-2 text-indigo-400"></i> Classique</button>
+                        <button onclick="setTheme('chantier')" class="w-full text-left px-4 py-2 text-xs font-bold text-amber-300 hover:bg-cardhover hover:text-white flex items-center"><i class="fa-solid fa-person-digging w-5 mr-2 text-amber-400"></i> Chantier 🚧</button>
                         <button onclick="setTheme('gaming')" class="w-full text-left px-4 py-2 text-xs font-bold text-gray-300 hover:bg-cardhover hover:text-white flex items-center"><i class="fa-solid fa-gamepad w-5 mr-2 text-red-400"></i> Gaming</button>
                         <button onclick="setTheme('chill')" class="w-full text-left px-4 py-2 text-xs font-bold text-gray-300 hover:bg-cardhover hover:text-white flex items-center"><i class="fa-solid fa-mug-hot w-5 mr-2 text-sky-400"></i> Chill</button>
                         <button onclick="setTheme('neon')" class="w-full text-left px-4 py-2 text-xs font-bold text-gray-300 hover:bg-cardhover hover:text-white flex items-center"><i class="fa-solid fa-bolt w-5 mr-2 text-rose-400"></i> Néon</button>
@@ -159,7 +181,7 @@
             </span>
             
             <h1 class="text-4xl sm:text-6xl font-black tracking-tight max-w-4xl mx-auto leading-tight">
-                Plongez dans l'expérience <span class="bg-gradient-to-r from-accent via-purple-400 to-pink-500 bg-clip-text text-transparent">Roleplay Ultime</span>
+                Plongez dans l'expérience <span class="text-accent">Roleplay Ultime</span>
             </h1>
             
             <p class="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto mt-6 leading-relaxed">
@@ -232,7 +254,7 @@
                         <span id="player-count" class="text-accent text-xs font-bold">78 / 128</span>
                     </div>
                     <div class="w-full bg-darkbg rounded-full h-2 overflow-hidden border border-gray-800">
-                        <div id="player-progress" class="bg-gradient-to-r from-accent to-purple-500 h-full w-[60%] transition-all duration-500"></div>
+                        <div id="player-progress" class="bg-accent h-full w-[60%] transition-all duration-500"></div>
                     </div>
                     <div class="flex items-center justify-between text-[11px] text-gray-400 pt-1">
                         <span>Framework : ESX Legacy</span>
@@ -325,7 +347,7 @@
         let siteAudio = null;
 
         window.addEventListener('DOMContentLoaded', () => {
-            // Charger le thème enregistré
+            // Charger le thème enregistré (Chantier, Gaming, etc.)
             const savedTheme = localStorage.getItem('site_theme');
             if(savedTheme && savedTheme !== 'default') {
                 document.documentElement.setAttribute('data-theme', savedTheme);
