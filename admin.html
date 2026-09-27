@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NomDuServeur - Panel Admin Révolutionnaire</title>
+    <title>Panel Administration - Serveur FiveM</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -24,286 +24,226 @@
         }
     </script>
 </head>
-<body class="bg-darkbg text-gray-100 font-sans antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between">
+<body class="bg-darkbg text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between">
 
-    <!-- Header simple -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#070a13]/90 backdrop-blur-md border-b border-gray-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="index.html" class="flex items-center space-x-3 group text-left focus:outline-none">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition">
-                    <i class="fa-solid fa-gamepad text-white text-lg"></i>
+    <!-- HEADER ADMIN -->
+    <header class="bg-[#070a13]/90 border-b border-gray-800 sticky top-0 z-40 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-600/30">
+                    <i class="fa-solid fa-gauge text-sm"></i>
                 </div>
-                <div>
-                    <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent block">NOMDU<span class="text-indigo-400">SERVEUR</span></span>
-                    <span class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold block -mt-1">Nexus Admin v3.0</span>
-                </div>
-            </a>
-            
-            <a href="index.html" class="px-4 py-2 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 transition text-gray-300 hover:text-white text-xs font-bold flex items-center">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Retour au site
-            </a>
+                <span class="font-black text-base tracking-wider">PANEL ADMIN</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="px-3.5 py-2 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 text-xs font-bold text-gray-300 hover:text-white transition flex items-center">
+                    <i class="fa-solid fa-house mr-2 text-indigo-400"></i> Voir le Site
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- CONTENEUR DU PANEL ADMIN -->
-    <main class="flex-grow flex items-center justify-center px-4 pt-28 pb-16">
-        <div class="max-w-4xl w-full bg-cardbg border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+    <!-- CONTENU PRINCIPAL ADMIN -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full space-y-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-black">Gestion du Serveur & Site</h1>
+                <p class="text-xs text-gray-400 mt-1">IP du serveur active : <code class="text-indigo-400">51.159.213.165:30001</code></p>
+            </div>
+        </div>
+
+        <!-- GRILLE DES PARAMÈTRES -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            <!-- Écran de Connexion (Visible par défaut) -->
-            <div id="admin-login-box">
-                <div class="text-center mb-8">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center mx-auto mb-3 text-xl border border-indigo-500/30">
-                        <i class="fa-solid fa-fingerprint"></i>
-                    </div>
-                    <h2 class="text-2xl font-black">Sécurité Maximale</h2>
-                    <p class="text-gray-400 text-xs mt-1">Entrez votre mot de passe administrateur pour accéder au Nexus.</p>
-                </div>
-                <form onsubmit="checkAdminPassword(event)" class="space-y-4 max-w-sm mx-auto">
+            <!-- 1. CONFIGURATION DU NOM ET MAINTENANCE -->
+            <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5">
+                <h2 class="text-sm font-black uppercase tracking-wider text-indigo-400 flex items-center">
+                    <i class="fa-solid fa-sliders mr-2"></i> Paramètres Généraux
+                </h2>
+                <div class="space-y-4">
                     <div>
-                        <input type="password" id="admin-pass-input" required placeholder="Mot de passe..." class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm text-center tracking-widest">
+                        <label class="block text-xs font-bold text-gray-400 mb-1">Nom du Serveur</label>
+                        <div class="flex gap-2">
+                            <input type="text" id="admin-server-name" placeholder="Ex: Paris Nation RP" class="flex-grow px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-indigo-500">
+                            <button onclick="saveServerName()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition">Enregistrer</button>
+                        </div>
                     </div>
-                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-bold text-white shadow-lg transition text-sm">
-                        Déverrouiller le Panel
-                    </button>
-                </form>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-800">
+                        <div>
+                            <span class="block text-xs font-bold">Mode Maintenance</span>
+                            <span class="text-[10px] text-gray-400">Affiche une alerte de maintenance sur le site</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="admin-maintenance-toggle" onchange="toggleMaintenance(this)" class="sr-only peer">
+                            <div class="w-11 h-6 bg-darkbg peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                        </label>
+                    </div>
+                </div>
             </div>
 
-            <!-- Tableau de bord Admin Révolutionnaire (Masqué par défaut) -->
-            <div id="admin-dashboard" class="hidden space-y-6">
-                <!-- En-tête du Dashboard -->
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-gray-800 gap-4">
+            <!-- 2. GESTION DE LA BANNIÈRE D'ANNONCE -->
+            <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5">
+                <h2 class="text-sm font-black uppercase tracking-wider text-purple-400 flex items-center">
+                    <i class="fa-solid fa-bullhorn mr-2"></i> Bannière d'Annonce Globale
+                </h2>
+                <div class="space-y-4">
                     <div>
-                        <h2 class="text-xl font-black flex items-center">
-                            <i class="fa-solid fa-rocket text-indigo-400 mr-2"></i> Nexus Control Center
-                        </h2>
-                        <p class="text-xs text-emerald-400 font-semibold mt-0.5 flex items-center">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping mr-2"></span> Connexion sécurisée active
-                        </p>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">Message de l'annonce</label>
+                        <textarea id="admin-announcement-input" rows="3" placeholder="Ex: Recrutements LSPD ouverts sur le Discord !" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-purple-500"></textarea>
                     </div>
-                    <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold transition">
-                        Déconnexion
+                    <div class="flex gap-2">
+                        <button onclick="saveAnnouncement()" class="flex-grow py-2.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold rounded-xl transition">Publier la bannière</button>
+                        <button onclick="clearAnnouncement()" class="px-4 py-2.5 bg-darkbg border border-gray-800 hover:border-gray-700 text-gray-300 text-xs font-bold rounded-xl transition">Retirer</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. MODULE BIBLIOTHÈQUE MUSICALE WEB (ADMIN) -->
+            <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5 md:col-span-2">
+                <h2 class="text-sm font-black uppercase tracking-wider text-emerald-400 flex items-center">
+                    <i class="fa-solid fa-compact-disc mr-2"></i> Ambiance Musicale & Bibliothèque NCS
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <label class="block text-xs font-bold text-gray-400">Choisir une piste de la bibliothèque</label>
+                        <select id="admin-preset-select" onchange="selectPresetTrack()" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-emerald-500">
+                            <option value="">-- Sélectionner une musique par défaut --</option>
+                            <option value="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tours/Enthusiast/Tours_-_01_-_Enthusiast.mp3">Tours - Enthusiast (Electro / Synthwave)</option>
+                            <option value="https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/7bE9L1yqRMBvJk8I6f73aW2d8XJzJg5o.mp3">NCS Electro / Dance Dynamic</option>
+                            <option value="https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/X1m6R4Wk8eL9vB2Z5nJ7a3kQ.mp3">Cyberpunk Chill Ambient</option>
+                        </select>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="block text-xs font-bold text-gray-400">Ou coller un lien direct MP3 / audio web</label>
+                        <input type="url" id="admin-custom-url" placeholder="https://exemple.com/audio.mp3" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="saveWebMusic()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition">
+                        <i class="fa-solid fa-check mr-2"></i> Enregistrer et appliquer
+                    </button>
+                    <button onclick="resetDefaultPlaylist()" class="px-4 py-2.5 bg-darkbg border border-gray-800 text-gray-400 hover:text-white text-xs font-bold rounded-xl transition">
+                        Réinitialiser la playlist complète
                     </button>
                 </div>
-
-                <!-- Grille de Contrôle Rapide (Statuts & Maintenance) -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <!-- Statut Serveur Interactif -->
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
-                        <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">État du Serveur</div>
-                        <div class="flex items-center justify-between">
-                            <span id="server-status-label" class="text-xs font-bold text-emerald-400">En Ligne (Public)</span>
-                            <button onclick="toggleServerStatus()" id="server-status-btn" class="px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold rounded-lg border border-red-500/30 transition">
-                                Basculer Maintenance
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Tickets en attente -->
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex items-center justify-between">
-                        <div>
-                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Tickets Joueurs</div>
-                            <div id="admin-ticket-count" class="text-2xl font-black text-indigo-400 mt-1">0</div>
-                        </div>
-                        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-headset"></i>
-                        </div>
-                    </div>
-
-                    <!-- Actions d'urgence -->
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
-                        <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Commandes Flash</div>
-                        <button onclick="triggerQuickRestart()" class="w-full py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold rounded-lg border border-amber-500/30 transition">
-                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> Alerte Redémarrage
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Générateur d'Annonce Live pour le site -->
-                <div class="bg-darkbg p-5 rounded-xl border border-gray-800 space-y-4">
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 flex items-center">
-                        <span class="w-7 h-7 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center mr-2 text-xs">
-                            <i class="fa-solid fa-bullhorn"></i>
-                        </span> Diffuser une Annonce Globale sur le Site
-                    </h4>
-                    <div class="space-y-3">
-                        <input type="text" id="global-announcement-text" placeholder="Ex: Événement course ce soir à 21h sur le serveur !" class="w-full px-4 py-2.5 rounded-xl bg-cardbg border border-gray-800 text-white text-xs focus:outline-none focus:border-purple-500 transition">
-                        <button onclick="publishGlobalAnnouncement()" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-paper-plane"></i> <span>Diffuser l'annonce instantanément</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Console de Logs en Direct (Effet Terminal) -->
-                <div class="bg-black/60 p-4 rounded-xl border border-gray-800 font-mono text-[11px] space-y-2">
-                    <div class="flex items-center justify-between border-b border-gray-800 pb-2 text-gray-400">
-                        <span class="flex items-center"><i class="fa-solid fa-terminal text-emerald-400 mr-2"></i> Console d'activité du Nexus</span>
-                        <span class="text-[10px] text-emerald-400 animate-pulse">● Live Stream</span>
-                    </div>
-                    <div id="terminal-logs" class="space-y-1 max-h-32 overflow-y-auto text-gray-300 pr-1">
-                        <div>[23:52:10] [SYSTEM] Panel admin déverrouillé avec succès.</div>
-                        <div>[23:52:12] [SYNC] Synchronisation des données du site active.</div>
-                    </div>
-                </div>
-
-                <!-- Gestion des Tickets du site -->
-                <div class="bg-darkbg p-5 rounded-xl border border-gray-800 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 flex items-center">
-                            <i class="fa-solid fa-ticket text-indigo-400 mr-2"></i> Boîte de Réception Support
-                        </h4>
-                        <button onclick="clearAllTickets()" class="text-xs text-red-400 hover:text-red-300 font-semibold transition">
-                            Tout effacer
-                        </button>
-                    </div>
-                    <div id="admin-tickets-container" class="space-y-3 max-h-[220px] overflow-y-auto pr-1">
-                        <p class="text-gray-500 text-center py-6 text-xs">Aucun ticket en attente pour le moment.</p>
-                    </div>
-                </div>
-
             </div>
 
         </div>
+
+        <!-- SECTION TICKETS REÇUS DU SITE -->
+        <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-sm font-black uppercase tracking-wider text-indigo-400 flex items-center">
+                    <i class="fa-solid fa-ticket mr-2"></i> Tickets de Support Reçus
+                </h2>
+                <button onclick="clearTickets()" class="text-[11px] text-red-400 hover:underline">Effacer tous les tickets</button>
+            </div>
+            <div id="tickets-container" class="space-y-3">
+                <p class="text-xs text-gray-500 italic">Aucun ticket reçu pour le moment.</p>
+            </div>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#04060b] border-t border-gray-800/80 py-6 text-center text-xs text-gray-500">
-        <p>NomDuServeur - Nexus Admin Panel</p>
+    <!-- FOOTER -->
+    <footer class="bg-[#04060b] border-t border-gray-800 py-6 text-center text-xs text-gray-500">
+        <p>Panel Administration - Serveur FiveM (IP: 51.159.213.165:30001)</p>
     </footer>
 
-    <!-- Scripts Révolutionnaires -->
+    <!-- SCRIPT ADMIN -->
     <script>
-        function checkAdminPassword(e) {
-            e.preventDefault();
-            const pass = document.getElementById('admin-pass-input').value;
-            if (pass === 'admin1234') {
-                document.getElementById('admin-login-box').classList.add('hidden');
-                document.getElementById('admin-dashboard').classList.remove('hidden');
-                loadAdminData();
-                checkServerStateUI();
-                addLogEntry("Administrateur connecté avec succès.");
-            } else {
-                alert("Mot de passe incorrect !");
-                document.getElementById('admin-pass-input').value = '';
+        window.addEventListener('DOMContentLoaded', () => {
+            const serverName = localStorage.getItem('fivem_server_name') || '';
+            if(serverName) document.getElementById('admin-server-name').value = serverName;
+
+            const isMaintenance = localStorage.getItem('server_maintenance') === 'true';
+            document.getElementById('admin-maintenance-toggle').checked = isMaintenance;
+
+            const announcement = localStorage.getItem('site_announcement') || '';
+            if(announcement) document.getElementById('admin-announcement-input').value = announcement;
+
+            const savedUrl = localStorage.getItem('fivem_web_music_url') || '';
+            if(savedUrl) document.getElementById('admin-custom-url').value = savedUrl;
+
+            loadTickets();
+        });
+
+        function saveServerName() {
+            const name = document.getElementById('admin-server-name').value.trim();
+            if(name) {
+                localStorage.setItem('fivem_server_name', name);
+                alert("✅ Nom du serveur mis à jour !");
             }
         }
 
-        function logoutAdmin() {
-            document.getElementById('admin-dashboard').classList.add('hidden');
-            document.getElementById('admin-login-box').classList.remove('hidden');
-            document.getElementById('admin-pass-input').value = '';
+        function toggleMaintenance(checkbox) {
+            localStorage.setItem('server_maintenance', checkbox.checked);
+            alert("⚙️ Mode maintenance " + (checkbox.checked ? "activé" : "désactivé"));
         }
 
-        // Charger les données et l'état
-        function loadAdminData() {
-            const tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
-            const container = document.getElementById('admin-tickets-container');
-            const countBadge = document.getElementById('admin-ticket-count');
-            
-            countBadge.textContent = tickets.length;
-            container.innerHTML = '';
+        function saveAnnouncement() {
+            const text = document.getElementById('admin-announcement-input').value.trim();
+            localStorage.setItem('site_announcement', text);
+            alert("📢 Bannière d'annonce mise à jour !");
+        }
 
-            if (tickets.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 text-center py-6 text-xs">Aucun ticket en attente pour le moment.</p>';
+        function clearAnnouncement() {
+            localStorage.removeItem('site_announcement');
+            document.getElementById('admin-announcement-input').value = '';
+            alert("🗑️ Bannière retirée.");
+        }
+
+        function selectPresetTrack() {
+            const val = document.getElementById('admin-preset-select').value;
+            if(val) {
+                document.getElementById('admin-custom-url').value = val;
+            }
+        }
+
+        function saveWebMusic() {
+            const url = document.getElementById('admin-custom-url').value.trim();
+            if(!url) {
+                alert("⚠️ Veuillez entrer ou sélectionner un lien audio valide.");
+                return;
+            }
+            localStorage.setItem('fivem_web_music_url', url);
+            alert("✅ Musique / Piste définie avec succès pour le site !");
+        }
+
+        function resetDefaultPlaylist() {
+            localStorage.removeItem('fivem_web_music_url');
+            document.getElementById('admin-custom-url').value = '';
+            document.getElementById('admin-preset-select').value = '';
+            alert("🔄 Retour à la bibliothèque multi-pistes par défaut !");
+        }
+
+        function loadTickets() {
+            const container = document.getElementById('tickets-container');
+            const tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
+            
+            if(tickets.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-500 italic">Aucun ticket reçu pour le moment.</p>`;
                 return;
             }
 
-            tickets.forEach((t, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-cardbg p-3.5 rounded-xl border border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3';
-                div.innerHTML = `
-                    <div class="space-y-1">
-                        <div class="flex items-center space-x-2">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400">${t.subject}</span>
+            container.innerHTML = '';
+            tickets.forEach((t) => {
+                container.innerHTML += `
+                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 space-y-2">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-indigo-400">${t.name} <span class="text-gray-400 font-normal">(${t.subject})</span></span>
                             <span class="text-[10px] text-gray-500">${t.date}</span>
                         </div>
-                        <div class="text-xs font-bold text-white">${t.name}</div>
-                        <p class="text-xs text-gray-400">${t.message}</p>
+                        <p class="text-xs text-gray-300">${t.message}</p>
                     </div>
-                    <button onclick="resolveTicket(${index})" class="px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/20 transition whitespace-nowrap">
-                        <i class="fa-solid fa-check mr-1"></i> Clôturer
-                    </button>
                 `;
-                container.appendChild(div);
             });
         }
 
-        function resolveTicket(index) {
-            let tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
-            const removed = tickets.splice(index, 1);
-            localStorage.setItem('fivem_tickets', JSON.stringify(tickets));
-            loadAdminData();
-            if(removed.length > 0) {
-                addLogEntry(`Ticket de ${removed[0].name} clôturé.`);
-            }
-        }
-
-        function clearAllTickets() {
-            if(confirm("Voulez-vous vraiment supprimer tous les tickets ?")) {
+        function clearTickets() {
+            if(confirm("Voulez-vous vraiment effacer tous les tickets ?")) {
                 localStorage.removeItem('fivem_tickets');
-                loadAdminData();
-                addLogEntry("Tous les tickets ont été purgés.");
+                loadTickets();
             }
-        }
-
-        // Mode Maintenance interactif lié au site
-        function toggleServerStatus() {
-            let currentStatus = localStorage.getItem('server_maintenance') === 'true';
-            let newStatus = !currentStatus;
-            localStorage.setItem('server_maintenance', newStatus);
-            checkServerStateUI();
-            if(newStatus) {
-                addLogEntry("⚠️ ALERTE : Serveur basculé en mode MAINTENANCE.");
-            } else {
-                addLogEntry("✅ Serveur remis en ligne (Public).");
-            }
-        }
-
-        function checkServerStateUI() {
-            const isMaintenance = localStorage.getItem('server_maintenance') === 'true';
-            const label = document.getElementById('server-status-label');
-            const btn = document.getElementById('server-status-btn');
-            if(isMaintenance) {
-                label.textContent = "En Maintenance";
-                label.className = "text-xs font-bold text-amber-400";
-                btn.textContent = "Remettre en Ligne";
-                btn.className = "px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold rounded-lg border border-emerald-500/30 transition";
-            } else {
-                label.textContent = "En Ligne (Public)";
-                label.className = "text-xs font-bold text-emerald-400";
-                btn.textContent = "Basculer Maintenance";
-                btn.className = "px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold rounded-lg border border-red-500/30 transition";
-            }
-        }
-
-        // Publier une annonce globale pour le site
-        function publishGlobalAnnouncement() {
-            const text = document.getElementById('global-announcement-text').value.trim();
-            if(!text) {
-                alert("Veuillez écrire une annonce !");
-                return;
-            }
-            localStorage.setItem('site_announcement', text);
-            document.getElementById('global-announcement-text').value = '';
-            alert("Annonce diffusée sur le site avec succès !");
-            addLogEntry(`Annonce globale publiée : "${text}"`);
-        }
-
-        function triggerQuickRestart() {
-            if(confirm("Envoyer l'alerte de redémarrage immédiat ?")) {
-                localStorage.setItem('site_announcement', "⚠️ REDÉMARRAGE DU SERVEUR EN COURS - Préparez-vous !");
-                addLogEntry("⚠️ Alerte de redémarrage diffusée en jeu et sur le site.");
-                alert("Signal de redémarrage envoyé !");
-            }
-        }
-
-        function addLogEntry(text) {
-            const logsContainer = document.getElementById('terminal-logs');
-            const now = new Date();
-            const timeString = now.toTimeString().split(' ')[0];
-            const div = document.createElement('div');
-            div.textContent = `[${timeString}] ${text}`;
-            logsContainer.appendChild(div);
-            logsContainer.scrollTop = logsContainer.scrollHeight;
         }
     </script>
 </body>
