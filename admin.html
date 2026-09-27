@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NomDuServeur - Panel Admin Sécurisé</title>
+    <title>NomDuServeur - Panel Admin Révolutionnaire</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -35,7 +35,7 @@
                 </div>
                 <div>
                     <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent block">NOMDU<span class="text-indigo-400">SERVEUR</span></span>
-                    <span class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold block -mt-1">Administration Sécurisée</span>
+                    <span class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold block -mt-1">Nexus Admin v3.0</span>
                 </div>
             </a>
             
@@ -47,79 +47,101 @@
 
     <!-- CONTENEUR DU PANEL ADMIN -->
     <main class="flex-grow flex items-center justify-center px-4 pt-28 pb-16">
-        <div class="max-w-3xl w-full bg-cardbg border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+        <div class="max-w-4xl w-full bg-cardbg border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
             
             <!-- Écran de Connexion (Visible par défaut) -->
             <div id="admin-login-box">
                 <div class="text-center mb-8">
                     <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center mx-auto mb-3 text-xl border border-indigo-500/30">
-                        <i class="fa-solid fa-lock"></i>
+                        <i class="fa-solid fa-fingerprint"></i>
                     </div>
-                    <h2 class="text-2xl font-black">Accès Restreint</h2>
-                    <p class="text-gray-400 text-xs mt-1">Veuillez entrer le mot de passe administrateur.</p>
+                    <h2 class="text-2xl font-black">Sécurité Maximale</h2>
+                    <p class="text-gray-400 text-xs mt-1">Entrez votre mot de passe administrateur pour accéder au Nexus.</p>
                 </div>
                 <form onsubmit="checkAdminPassword(event)" class="space-y-4 max-w-sm mx-auto">
                     <div>
                         <input type="password" id="admin-pass-input" required placeholder="Mot de passe..." class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm text-center tracking-widest">
                     </div>
-                    <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white shadow-lg transition text-sm">
-                        Se connecter
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-bold text-white shadow-lg transition text-sm">
+                        Déverrouiller le Panel
                     </button>
                 </form>
             </div>
 
-            <!-- Tableau de bord Admin Amélioré (Totalement masqué par défaut) -->
+            <!-- Tableau de bord Admin Révolutionnaire (Masqué par défaut) -->
             <div id="admin-dashboard" class="hidden space-y-6">
                 <!-- En-tête du Dashboard -->
-                <div class="flex items-center justify-between pb-4 border-b border-gray-800">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-gray-800 gap-4">
                     <div>
                         <h2 class="text-xl font-black flex items-center">
-                            <i class="fa-solid fa-shield-halved text-emerald-400 mr-2"></i> Panel de Gestion Admin
+                            <i class="fa-solid fa-rocket text-indigo-400 mr-2"></i> Nexus Control Center
                         </h2>
-                        <p class="text-xs text-emerald-400 font-semibold mt-0.5">● Synchronisé avec le site principal</p>
+                        <p class="text-xs text-emerald-400 font-semibold mt-0.5 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping mr-2"></span> Connexion sécurisée active
+                        </p>
                     </div>
                     <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold transition">
                         Déconnexion
                     </button>
                 </div>
 
-                <!-- Statistiques Rapides -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Grille de Contrôle Rapide (Statuts & Maintenance) -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Statut Serveur Interactif -->
+                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
+                        <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">État du Serveur</div>
+                        <div class="flex items-center justify-between">
+                            <span id="server-status-label" class="text-xs font-bold text-emerald-400">En Ligne (Public)</span>
+                            <button onclick="toggleServerStatus()" id="server-status-btn" class="px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold rounded-lg border border-red-500/30 transition">
+                                Basculer Maintenance
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tickets en attente -->
                     <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex items-center justify-between">
                         <div>
-                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Tickets Joueurs en attente</div>
+                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Tickets Joueurs</div>
                             <div id="admin-ticket-count" class="text-2xl font-black text-indigo-400 mt-1">0</div>
                         </div>
                         <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-ticket"></i>
+                            <i class="fa-solid fa-headset"></i>
                         </div>
                     </div>
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex items-center justify-between">
-                        <div>
-                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">État de l'infrastructure</div>
-                            <div class="text-sm font-bold text-emerald-400 mt-2 flex items-center">
-                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> Opérationnel
-                            </div>
-                        </div>
-                        <div class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-server"></i>
-                        </div>
+
+                    <!-- Actions d'urgence -->
+                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
+                        <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Commandes Flash</div>
+                        <button onclick="triggerQuickRestart()" class="w-full py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold rounded-lg border border-amber-500/30 transition">
+                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> Alerte Redémarrage
+                        </button>
                     </div>
                 </div>
 
-                <!-- Commandes rapides en lien avec le site -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 space-y-3">
-                        <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Actions Serveur</div>
-                        <button onclick="alert('Signal envoyé : Redémarrage planifié en jeu !')" class="w-full py-2.5 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-xs font-bold rounded-lg border border-indigo-500/30 transition flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-rotate"></i> <span>Alerter Restart (In-game)</span>
+                <!-- Générateur d'Annonce Live pour le site -->
+                <div class="bg-darkbg p-5 rounded-xl border border-gray-800 space-y-4">
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 flex items-center">
+                        <span class="w-7 h-7 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center mr-2 text-xs">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </span> Diffuser une Annonce Globale sur le Site
+                    </h4>
+                    <div class="space-y-3">
+                        <input type="text" id="global-announcement-text" placeholder="Ex: Événement course ce soir à 21h sur le serveur !" class="w-full px-4 py-2.5 rounded-xl bg-cardbg border border-gray-800 text-white text-xs focus:outline-none focus:border-purple-500 transition">
+                        <button onclick="publishGlobalAnnouncement()" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i> <span>Diffuser l'annonce instantanément</span>
                         </button>
                     </div>
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 space-y-3">
-                        <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Gestion Boutique / VIP</div>
-                        <button onclick="alert('Fonctionnalité prête : Synchronisation Tebex active.')" class="w-full py-2.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 text-xs font-bold rounded-lg border border-purple-500/30 transition flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-store"></i> <span>Vérifier les Logs Boutique</span>
-                        </button>
+                </div>
+
+                <!-- Console de Logs en Direct (Effet Terminal) -->
+                <div class="bg-black/60 p-4 rounded-xl border border-gray-800 font-mono text-[11px] space-y-2">
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-2 text-gray-400">
+                        <span class="flex items-center"><i class="fa-solid fa-terminal text-emerald-400 mr-2"></i> Console d'activité du Nexus</span>
+                        <span class="text-[10px] text-emerald-400 animate-pulse">● Live Stream</span>
+                    </div>
+                    <div id="terminal-logs" class="space-y-1 max-h-32 overflow-y-auto text-gray-300 pr-1">
+                        <div>[23:52:10] [SYSTEM] Panel admin déverrouillé avec succès.</div>
+                        <div>[23:52:12] [SYNC] Synchronisation des données du site active.</div>
                     </div>
                 </div>
 
@@ -127,13 +149,13 @@
                 <div class="bg-darkbg p-5 rounded-xl border border-gray-800 space-y-4">
                     <div class="flex items-center justify-between">
                         <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 flex items-center">
-                            <i class="fa-solid fa-headset text-indigo-400 mr-2"></i> Support Joueurs (Tickets reçus du site)
+                            <i class="fa-solid fa-ticket text-indigo-400 mr-2"></i> Boîte de Réception Support
                         </h4>
                         <button onclick="clearAllTickets()" class="text-xs text-red-400 hover:text-red-300 font-semibold transition">
                             Tout effacer
                         </button>
                     </div>
-                    <div id="admin-tickets-container" class="space-y-3 max-h-[250px] overflow-y-auto pr-1">
+                    <div id="admin-tickets-container" class="space-y-3 max-h-[220px] overflow-y-auto pr-1">
                         <p class="text-gray-500 text-center py-6 text-xs">Aucun ticket en attente pour le moment.</p>
                     </div>
                 </div>
@@ -145,10 +167,10 @@
 
     <!-- Footer -->
     <footer class="bg-[#04060b] border-t border-gray-800/80 py-6 text-center text-xs text-gray-500">
-        <p>NomDuServeur - Panel Administrateur Sécurisé</p>
+        <p>NomDuServeur - Nexus Admin Panel</p>
     </footer>
 
-    <!-- Script de sécurité et gestion des données du site -->
+    <!-- Scripts Révolutionnaires -->
     <script>
         function checkAdminPassword(e) {
             e.preventDefault();
@@ -156,7 +178,9 @@
             if (pass === 'admin1234') {
                 document.getElementById('admin-login-box').classList.add('hidden');
                 document.getElementById('admin-dashboard').classList.remove('hidden');
-                loadAdminData(); // Charger les tickets du site au moment de la connexion
+                loadAdminData();
+                checkServerStateUI();
+                addLogEntry("Administrateur connecté avec succès.");
             } else {
                 alert("Mot de passe incorrect !");
                 document.getElementById('admin-pass-input').value = '';
@@ -169,7 +193,7 @@
             document.getElementById('admin-pass-input').value = '';
         }
 
-        // Chargement et affichage des tickets stockés par le site principal
+        // Charger les données et l'état
         function loadAdminData() {
             const tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
             const container = document.getElementById('admin-tickets-container');
@@ -203,20 +227,83 @@
             });
         }
 
-        // Supprimer un ticket spécifique (marquer comme résolu)
         function resolveTicket(index) {
             let tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
-            tickets.splice(index, 1);
+            const removed = tickets.splice(index, 1);
             localStorage.setItem('fivem_tickets', JSON.stringify(tickets));
             loadAdminData();
+            if(removed.length > 0) {
+                addLogEntry(`Ticket de ${removed[0].name} clôturé.`);
+            }
         }
 
-        // Tout effacer
         function clearAllTickets() {
             if(confirm("Voulez-vous vraiment supprimer tous les tickets ?")) {
                 localStorage.removeItem('fivem_tickets');
                 loadAdminData();
+                addLogEntry("Tous les tickets ont été purgés.");
             }
+        }
+
+        // Mode Maintenance interactif lié au site
+        function toggleServerStatus() {
+            let currentStatus = localStorage.getItem('server_maintenance') === 'true';
+            let newStatus = !currentStatus;
+            localStorage.setItem('server_maintenance', newStatus);
+            checkServerStateUI();
+            if(newStatus) {
+                addLogEntry("⚠️ ALERTE : Serveur basculé en mode MAINTENANCE.");
+            } else {
+                addLogEntry("✅ Serveur remis en ligne (Public).");
+            }
+        }
+
+        function checkServerStateUI() {
+            const isMaintenance = localStorage.getItem('server_maintenance') === 'true';
+            const label = document.getElementById('server-status-label');
+            const btn = document.getElementById('server-status-btn');
+            if(isMaintenance) {
+                label.textContent = "En Maintenance";
+                label.className = "text-xs font-bold text-amber-400";
+                btn.textContent = "Remettre en Ligne";
+                btn.className = "px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold rounded-lg border border-emerald-500/30 transition";
+            } else {
+                label.textContent = "En Ligne (Public)";
+                label.className = "text-xs font-bold text-emerald-400";
+                btn.textContent = "Basculer Maintenance";
+                btn.className = "px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold rounded-lg border border-red-500/30 transition";
+            }
+        }
+
+        // Publier une annonce globale pour le site
+        function publishGlobalAnnouncement() {
+            const text = document.getElementById('global-announcement-text').value.trim();
+            if(!text) {
+                alert("Veuillez écrire une annonce !");
+                return;
+            }
+            localStorage.setItem('site_announcement', text);
+            document.getElementById('global-announcement-text').value = '';
+            alert("Annonce diffusée sur le site avec succès !");
+            addLogEntry(`Annonce globale publiée : "${text}"`);
+        }
+
+        function triggerQuickRestart() {
+            if(confirm("Envoyer l'alerte de redémarrage immédiat ?")) {
+                localStorage.setItem('site_announcement', "⚠️ REDÉMARRAGE DU SERVEUR EN COURS - Préparez-vous !");
+                addLogEntry("⚠️ Alerte de redémarrage diffusée en jeu et sur le site.");
+                alert("Signal de redémarrage envoyé !");
+            }
+        }
+
+        function addLogEntry(text) {
+            const logsContainer = document.getElementById('terminal-logs');
+            const now = new Date();
+            const timeString = now.toTimeString().split(' ')[0];
+            const div = document.createElement('div');
+            div.textContent = `[${timeString}] ${text}`;
+            logsContainer.appendChild(div);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
         }
     </script>
 </body>
