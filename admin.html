@@ -81,7 +81,7 @@
                 </div>
             </div>
 
-            <!-- 2. GESTION DES THÈMES & ANIMATIONS (DONT CHANTIER) -->
+            <!-- 2. GESTION DES THÈMES & ANIMATIONS (CHANTIER) -->
             <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5">
                 <h2 class="text-sm font-black uppercase tracking-wider text-amber-400 flex items-center">
                     <i class="fa-solid fa-palette mr-2"></i> Choix du Style & Thème du Site
@@ -123,7 +123,23 @@
                 </div>
             </div>
 
-            <!-- 4. MODULE BIBLIOTHÈQUE MUSICALE WEB (ADMIN) -->
+            <!-- 4. GESTION DES TARIFS BOUTIQUE -->
+            <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5 md:col-span-2">
+                <h2 class="text-sm font-black uppercase tracking-wider text-emerald-400 flex items-center">
+                    <i class="fa-solid fa-tags mr-2"></i> Personnalisation des 5 Tarifs de la Boutique
+                </h2>
+                <p class="text-xs text-gray-400">Modifie les titres, prix et descriptions des packs proposés aux joueurs sur le site :</p>
+                <div id="admin-tariffs-inputs" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Généré dynamiquement en JS -->
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button onclick="saveTariffs()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition">
+                        <i class="fa-solid fa-check mr-2"></i> Enregistrer les tarifs
+                    </button>
+                </div>
+            </div>
+
+            <!-- 5. MODULE BIBLIOTHÈQUE MUSICALE WEB (ADMIN) -->
             <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5 md:col-span-2">
                 <h2 class="text-sm font-black uppercase tracking-wider text-emerald-400 flex items-center">
                     <i class="fa-solid fa-compact-disc mr-2"></i> Ambiance Musicale & Bibliothèque Web
@@ -176,6 +192,14 @@
 
     <!-- SCRIPT ADMIN -->
     <script>
+        const defaultTariffs = [
+            { title: "Pack Débutant (Starter RP)", price: "3,005 XOF", desc: "50 000 $ en jeu + 1 Véhicule compact importé + Permis de conduire offerts." },
+            { title: "Formule Citoyen Actif", price: "6,010 XOF", desc: "150 000 $ en jeu + 1 Véhicule sport/berline au choix + 1 Masque exclusif boutique." },
+            { title: "Pass VIP Silver (1 Mois)", price: "9,015 XOF", desc: "Priorité modérée à la connexion + Plaque personnalisée + 200 000 $ de salaire bonus." },
+            { title: "Pack Entreprise / Gang", price: "15,025 XOF", desc: "Aide à l'intégration d'un mapping/vêtement + 500 000 $ sur le compte de l'organisation." },
+            { title: "Accès VIP Gold Permanent", price: "21,035 XOF", desc: "Statut VIP à vie + Priorité max file d'attente + Garage VIP exclusif + Accessoire réservé." }
+        ];
+
         window.addEventListener('DOMContentLoaded', () => {
             const serverName = localStorage.getItem('fivem_server_name') || '';
             if(serverName) document.getElementById('admin-server-name').value = serverName;
@@ -189,8 +213,47 @@
             const savedUrl = localStorage.getItem('fivem_web_music_url') || '';
             if(savedUrl) document.getElementById('admin-custom-url').value = savedUrl;
 
+            loadAdminTariffs();
             loadTickets();
         });
+
+        function loadAdminTariffs() {
+            const container = document.getElementById('admin-tariffs-inputs');
+            const currentTariffs = JSON.parse(localStorage.getItem('fivem_tariffs')) || defaultTariffs;
+            container.innerHTML = '';
+
+            currentTariffs.forEach((t, index) => {
+                container.innerHTML += `
+                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 space-y-3">
+                        <span class="text-xs font-bold text-emerald-400">Pack #${index + 1}</span>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 mb-1">Titre</label>
+                            <input type="text" id="tariff-title-${index}" value="${t.title}" class="w-full px-3 py-2 rounded-lg bg-cardbg border border-gray-800 text-white text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 mb-1">Prix</label>
+                            <input type="text" id="tariff-price-${index}" value="${t.price}" class="w-full px-3 py-2 rounded-lg bg-cardbg border border-gray-800 text-white text-xs">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-gray-400 mb-1">Description</label>
+                            <textarea id="tariff-desc-${index}" rows="2" class="w-full px-3 py-2 rounded-lg bg-cardbg border border-gray-800 text-white text-xs">${t.desc}</textarea>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function saveTariffs() {
+            let newTariffs = [];
+            for(let i = 0; i < 5; i++) {
+                const title = document.getElementById(`tariff-title-${i}`).value.trim();
+                const price = document.getElementById(`tariff-price-${i}`).value.trim();
+                const desc = document.getElementById(`tariff-desc-${i}`).value.trim();
+                newTariffs.push({ title, price, desc });
+            }
+            localStorage.setItem('fivem_tariffs', JSON.stringify(newTariffs));
+            alert("✅ Les 5 tarifs de la boutique ont été mis à jour avec succès !");
+        }
 
         function saveServerName() {
             const name = document.getElementById('admin-server-name').value.trim();
