@@ -59,14 +59,15 @@
                 <a href="fivem://connect/51.159.213.165:30001" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 transition flex items-center">
                     <i class="fa-solid fa-play mr-2"></i> Rejoindre
                 </a>
-                <a href="admin.html" title="Panel Admin" class="w-9 h-9 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition">
-                    <i class="fa-solid fa-lock text-xs"></i>
+                <!-- BOUTON ACCÈS PANEL ADMIN -->
+                <a href="admin.html" class="px-3.5 py-2.5 rounded-xl bg-purple-600/20 border border-purple-500/40 hover:bg-purple-600 text-purple-300 hover:text-white text-xs font-bold transition flex items-center shadow-md" title="Accéder au Panel Admin">
+                    <i class="fa-solid fa-gauge mr-1.5"></i> Panel Admin
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- WIDGET LECTEUR MUSICAL FLOTTANT (AVEC NAVIGATION DE BIBLIOTHÈQUE) -->
+    <!-- WIDGET LECTEUR MUSICAL FLOTTANT -->
     <div id="music-player-widget" class="fixed bottom-6 right-6 z-50 bg-cardbg/95 border border-indigo-500/40 p-3.5 rounded-2xl shadow-2xl backdrop-blur flex items-center space-x-3">
         <button onclick="prevTrack()" title="Morceau précédent" class="text-gray-400 hover:text-white text-xs cursor-pointer px-1">
             <i class="fa-solid fa-backward-step"></i>
@@ -81,7 +82,7 @@
         </button>
 
         <div class="pr-2 max-w-[160px] overflow-hidden">
-            <span id="music-title" class="block text-[11px] font-bold text-gray-200 truncate">Bibliothèque NCS</span>
+            <span id="music-title" class="block text-[11px] font-bold text-gray-200 truncate">Bibliothèque audio</span>
             <span id="music-status-text" class="block text-[9px] text-indigo-400">Cliquer pour écouter</span>
         </div>
     </div>
@@ -254,18 +255,16 @@
 
     <!-- SCRIPTS SYNCHRONISATION & LECTEUR MUSICAL -->
     <script>
-        // Bibliothèque NCS & Électro par défaut
         const defaultPlaylist = [
-            { title: "Tours - Enthusiast", url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Tours/Enthusiast/Tours_-_01_-_Enthusiast.mp3" },
-            { title: "NCS Electro Beat", url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/7bE9L1yqRMBvJk8I6f73aW2d8XJzJg5o.mp3" },
-            { title: "Cyberpunk Chill RP", url: "https://files.freemusicarchive.org/storage-freemusicarchive-org/tracks/X1m6R4Wk8eL9vB2Z5nJ7a3kQ.mp3" }
+            { title: "Ambiance Electro #1", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { title: "Ambiance Synthwave #2", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { title: "Ambiance Chill #3", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
         ];
 
         let currentTrackIndex = 0;
         let siteAudio = null;
 
         window.addEventListener('DOMContentLoaded', () => {
-            // 1. Nom personnalisé du serveur
             const savedServerName = localStorage.getItem('fivem_server_name');
             if(savedServerName) {
                 document.getElementById('page-title').textContent = savedServerName + " - Serveur FiveM";
@@ -273,7 +272,6 @@
                 document.getElementById('footer-text').textContent = savedServerName + " - Tous droits réservés. Non affilié à Rockstar Games.";
             }
 
-            // 2. Mode maintenance
             const isMaintenance = localStorage.getItem('server_maintenance') === 'true';
             const statusHeader = document.getElementById('header-server-status');
             const widgetStatus = document.getElementById('widget-status');
@@ -284,7 +282,6 @@
                 widgetStatus.className = "text-amber-400 text-xs font-bold";
             }
 
-            // 3. Bannière d'annonce
             const savedAnnouncement = localStorage.getItem('site_announcement');
             const banner = document.getElementById('site-announcement-banner');
             const textContent = document.getElementById('announcement-text-content');
@@ -293,7 +290,6 @@
                 banner.classList.remove('hidden');
             }
 
-            // 4. Initialisation du lecteur musical (Personnalisé ou Playlist NCS)
             const customUrl = localStorage.getItem('fivem_web_music_url');
             if(customUrl) {
                 siteAudio = new Audio(customUrl);
@@ -311,9 +307,13 @@
             const statusText = document.getElementById('music-status-text');
 
             if(siteAudio.paused) {
-                siteAudio.play().catch(() => alert("Veuillez interagir avec la page pour autoriser la lecture audio."));
-                icon.className = "fa-solid fa-pause text-xs";
-                statusText.textContent = "Lecture en cours...";
+                siteAudio.play().then(() => {
+                    icon.className = "fa-solid fa-pause text-xs";
+                    statusText.textContent = "Lecture en cours...";
+                }).catch(error => {
+                    console.error("Erreur lecture audio :", error);
+                    alert("Impossible de lire le son. Vérifie que ton lien est un fichier .mp3 direct.");
+                });
             } else {
                 siteAudio.pause();
                 icon.className = "fa-solid fa-play text-xs";
@@ -322,7 +322,7 @@
         }
 
         function nextTrack() {
-            if(localStorage.getItem('fivem_web_music_url')) return; // Bloqué si une piste custom unique est active
+            if(localStorage.getItem('fivem_web_music_url')) return; 
             currentTrackIndex = (currentTrackIndex + 1) % defaultPlaylist.length;
             switchTrack(defaultPlaylist[currentTrackIndex]);
         }
@@ -340,7 +340,7 @@
             siteAudio.loop = true;
             document.getElementById('music-title').textContent = track.title;
             if(isPlaying) {
-                siteAudio.play();
+                siteAudio.play().catch(err => console.log(err));
             }
         }
 
