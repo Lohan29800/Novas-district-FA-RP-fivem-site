@@ -39,14 +39,14 @@
                 <a href="https://discord.gg/votreinvite" target="_blank" class="inline-flex items-center justify-center w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30 mb-4">
                     <i class="fa-brands fa-discord mr-2"></i> Rejoindre le Discord
                 </a>
-                <button onclick="scrollToSection('staff')" class="text-xs text-gray-500 hover:text-gray-300 transition">
+                <a href="admin.html" class="text-xs text-gray-500 hover:text-gray-300 transition block">
                     Connexion Panel Admin
-                </button>
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Header / Navbar avec Menu Déroulant Catégories -->
+    <!-- Header / Navbar -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-darkbg/85 backdrop-blur-md border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#accueil" class="flex items-center space-x-3">
@@ -56,7 +56,6 @@
                 <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent">NOM DU SERVEUR</span>
             </a>
             
-            <!-- Navigation principale -->
             <nav class="hidden md:flex items-center space-x-8 font-medium">
                 <a href="#accueil" class="hover:text-indigo-400 transition">Accueil</a>
                 
@@ -66,7 +65,6 @@
                         <span>Catégories</span>
                         <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
                     </button>
-                    <!-- Contenu du menu déroulant -->
                     <div class="absolute top-full left-0 w-60 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
                         <div class="bg-cardbg border border-gray-800 rounded-2xl p-2 shadow-2xl space-y-1">
                             <a href="#presentation" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 hover:text-white transition">
@@ -79,7 +77,7 @@
                                 <i class="fa-solid fa-headset text-indigo-400 w-5"></i> <span>Support / Tickets</span>
                             </a>
                             <div class="border-t border-gray-800 my-1"></div>
-                            <a href="#staff" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-indigo-400 hover:text-indigo-300 transition font-semibold">
+                            <a href="admin.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-indigo-400 hover:text-indigo-300 transition font-semibold">
                                 <i class="fa-solid fa-shield-halved w-5"></i> <span>Panel Admin</span>
                             </a>
                         </div>
@@ -89,7 +87,7 @@
                 <a href="#presentation" class="hover:text-indigo-400 transition">Présentation</a>
                 <a href="#boutique" class="hover:text-indigo-400 transition">Boutique</a>
                 <a href="#support" class="hover:text-indigo-400 transition">Support</a>
-                <a href="#staff" class="text-indigo-400 font-bold hover:text-indigo-300 transition flex items-center"><i class="fa-solid fa-shield-halved mr-1.5"></i> Admin</a>
+                <a href="admin.html" class="text-indigo-400 font-bold hover:text-indigo-300 transition flex items-center"><i class="fa-solid fa-shield-halved mr-1.5"></i> Admin</a>
             </nav>
 
             <div class="flex items-center space-x-4">
@@ -107,7 +105,6 @@
     <!-- Hero Section -->
     <section id="accueil" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-b from-darkbg via-[#111827] to-darkbg">
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
-        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center relative z-10">
             <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-semibold mb-6">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> Whitelist Ouverte • Serveur Optimisé ESX / QBCore
@@ -139,7 +136,6 @@
                 <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4">Présentation Générale</h2>
                 <p class="text-gray-400 max-w-xl mx-auto">Statistiques connectées en temps réel à l'infrastructure FiveM.</p>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
                     <div class="text-emerald-400 text-4xl font-black mb-2">En Ligne</div>
@@ -165,9 +161,7 @@
                 <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4">Boutique VIP</h2>
                 <p class="text-gray-400 max-w-xl mx-auto">Soutenez le projet et obtenez des avantages crédités automatiquement sur votre personnage.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- VIP Bronze -->
                 <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-500 transition">
                     <div>
                         <h3 class="text-2xl font-black mb-4">VIP Bronze</h3>
@@ -175,15 +169,10 @@
                         <ul class="space-y-3 text-sm text-gray-300 mb-8">
                             <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Véhicule exclusif (Classe C)</li>
                             <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> +50 000 $ en banque</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Attribution auto via Webhook</li>
                         </ul>
                     </div>
-                    <button onclick="addToCart('VIP Bronze', 4.99)" class="w-full py-3 rounded-xl bg-gray-800 hover:bg-indigo-600 text-white font-bold transition">
-                        Ajouter au panier
-                    </button>
+                    <button onclick="addToCart('VIP Bronze', 4.99)" class="w-full py-3 rounded-xl bg-gray-800 hover:bg-indigo-600 text-white font-bold transition">Ajouter au panier</button>
                 </div>
-
-                <!-- VIP Argent -->
                 <div class="bg-cardbg border-2 border-indigo-500 rounded-2xl p-8 flex flex-col justify-between shadow-2xl relative transform md:-translate-y-2">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Populaire</div>
                     <div>
@@ -193,15 +182,10 @@
                             <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Véhicule Sport exclusif</li>
                             <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> +150 000 $ en banque</li>
                             <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Priorité file d'attente (Queue)</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Rôle Discord automatique</li>
                         </ul>
                     </div>
-                    <button onclick="addToCart('VIP Argent', 9.99)" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30">
-                        Ajouter au panier
-                    </button>
+                    <button onclick="addToCart('VIP Argent', 9.99)" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30">Ajouter au panier</button>
                 </div>
-
-                <!-- VIP Or -->
                 <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-500 transition">
                     <div>
                         <h3 class="text-2xl font-black mb-4">VIP Or</h3>
@@ -209,12 +193,9 @@
                         <ul class="space-y-3 text-sm text-gray-300 mb-8">
                             <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Véhicule Supercar exclusif</li>
                             <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> +350 000 $ en banque</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Priorité maximale file d'attente</li>
                         </ul>
                     </div>
-                    <button onclick="addToCart('VIP Or', 19.99)" class="w-full py-3 rounded-xl bg-gray-800 hover:bg-indigo-600 text-white font-bold transition">
-                        Ajouter au panier
-                    </button>
+                    <button onclick="addToCart('VIP Or', 19.99)" class="w-full py-3 rounded-xl bg-gray-800 hover:bg-indigo-600 text-white font-bold transition">Ajouter au panier</button>
                 </div>
             </div>
         </div>
@@ -228,7 +209,6 @@
                 <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4">Support & Tickets</h2>
                 <p class="text-gray-400 max-w-xl mx-auto">Un problème en jeu ou avec l'attribution d'un article boutique ? Ouvrez un ticket.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
                     <h3 class="text-xl font-bold mb-6 flex items-center">
@@ -256,7 +236,6 @@
                         </button>
                     </form>
                 </div>
-
                 <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold flex items-center">
@@ -268,55 +247,6 @@
                         <p id="no-tickets" class="text-gray-500 text-center py-12">Aucun ticket en cours.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Staff Panel Section -->
-    <section id="staff" class="py-24 bg-[#0e1320] border-t border-gray-800/50">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <span class="text-indigo-400 font-bold uppercase tracking-wider text-sm"><i class="fa-solid fa-lock mr-1"></i> Sécurité Serveur</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4">Panel Admin</h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Gestion centralisée des tickets joueurs et interrupteur du mode maintenance.</p>
-            </div>
-
-            <!-- Connexion Panel Admin -->
-            <div id="staff-login-container" class="max-w-md mx-auto bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
-                <h3 class="text-xl font-bold mb-6 text-center"><i class="fa-solid fa-user-shield text-indigo-400 mr-2"></i> Connexion Admin</h3>
-                <form onsubmit="staffLogin(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-1">Mot de passe Admin</label>
-                        <input type="password" id="staff-password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-700 text-white focus:outline-none focus:border-indigo-500 transition">
-                        <p class="text-xs text-gray-500 mt-1">Par défaut : <code class="text-indigo-400">staff123</code></p>
-                    </div>
-                    <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white shadow-lg shadow-indigo-600/30 transition">
-                        Accéder au Panel
-                    </button>
-                </form>
-            </div>
-
-            <!-- Tableau de Bord Admin (Caché) -->
-            <div id="staff-dashboard" class="hidden bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
-                <div class="flex flex-col sm:flex-row items-center justify-between pb-6 border-b border-gray-800 gap-4 mb-6">
-                    <div>
-                        <h3 class="text-xl font-bold text-white flex items-center">
-                            <i class="fa-solid fa-gauge-high text-emerald-400 mr-2"></i> Console d'Administration
-                        </h3>
-                        <p class="text-xs text-gray-400 mt-1">Connecté en tant qu'administrateur</p>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <button id="maintenance-toggle-btn" onclick="toggleMaintenance()" class="px-4 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 text-sm font-semibold transition border border-amber-500/20">
-                            <i class="fa-solid fa-power-off mr-1.5"></i> <span id="maintenance-btn-text">Activer Maintenance</span>
-                        </button>
-                        <button onclick="staffLogout()" class="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-semibold transition">
-                            Déconnexion
-                        </button>
-                    </div>
-                </div>
-
-                <h4 class="text-lg font-bold mb-4">Gestion des tickets</h4>
-                <div id="staff-tickets-list" class="space-y-4 max-h-[500px] overflow-y-auto pr-2"></div>
             </div>
         </div>
     </section>
@@ -363,10 +293,9 @@
         </div>
     </div>
 
-    <!-- Script de gestion -->
+    <!-- Script Site -->
     <script>
         let cart = [];
-
         function openCart() { document.getElementById('cart-modal').classList.remove('hidden'); }
         function closeCart() { document.getElementById('cart-modal').classList.add('hidden'); }
 
@@ -386,18 +315,15 @@
             const badge = document.getElementById('cart-badge');
             const total = document.getElementById('cart-total');
             container.innerHTML = '';
-
             if (cart.length === 0) {
                 badge.classList.add('hidden');
                 container.innerHTML = '<p class="text-gray-500 text-center py-8">Votre panier est vide.</p>';
                 total.textContent = '0.00 €';
                 return;
             }
-
             badge.classList.remove('hidden');
             badge.textContent = cart.length;
             let sum = 0;
-
             cart.forEach((item, idx) => {
                 sum += item.price;
                 const div = document.createElement('div');
@@ -410,27 +336,13 @@
 
         let tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
         let isMaintenanceActive = JSON.parse(localStorage.getItem('fivem_maintenance')) || false;
-        let isStaffLoggedIn = sessionStorage.getItem('staff_logged') === 'true';
 
         function checkMaintenanceState() {
-            const screen = document.getElementById('maintenance-screen');
-            if (isMaintenanceActive && !isStaffLoggedIn) {
-                screen.classList.remove('hidden');
+            if (isMaintenanceActive) {
+                document.getElementById('maintenance-screen').classList.remove('hidden');
             } else {
-                screen.classList.add('hidden');
+                document.getElementById('maintenance-screen').classList.add('hidden');
             }
-        }
-
-        function toggleMaintenance() {
-            isMaintenanceActive = !isMaintenanceActive;
-            localStorage.setItem('fivem_maintenance', JSON.stringify(isMaintenanceActive));
-            checkMaintenanceState();
-            alert(isMaintenanceActive ? "Mode maintenance activé !" : "Mode maintenance désactivé !");
-        }
-
-        function scrollToSection(id) {
-            document.getElementById('maintenance-screen').classList.add('hidden');
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
         function createTicket(e) {
@@ -465,32 +377,7 @@
             });
         }
 
-        function staffLogin(e) {
-            e.preventDefault();
-            if (document.getElementById('staff-password').value === 'staff123') {
-                isStaffLoggedIn = true;
-                sessionStorage.setItem('staff_logged', 'true');
-                document.getElementById('staff-login-container').classList.add('hidden');
-                document.getElementById('staff-dashboard').classList.remove('hidden');
-                checkMaintenanceState();
-            } else {
-                alert("Mot de passe incorrect ! (staff123)");
-            }
-        }
-
-        function staffLogout() {
-            isStaffLoggedIn = false;
-            sessionStorage.removeItem('staff_logged');
-            document.getElementById('staff-dashboard').classList.add('hidden');
-            document.getElementById('staff-login-container').classList.remove('hidden');
-            checkMaintenanceState();
-        }
-
         window.onload = function() {
-            if (isStaffLoggedIn) {
-                document.getElementById('staff-login-container').classList.add('hidden');
-                document.getElementById('staff-dashboard').classList.remove('hidden');
-            }
             renderTickets();
             checkMaintenanceState();
         }
