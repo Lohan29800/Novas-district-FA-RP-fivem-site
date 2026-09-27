@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NomDuServeur - Panel & Administration FiveM</title>
+    <title>NomDuServeur - Vitrine & Support FiveM</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -39,7 +39,7 @@
                 </div>
             </button>
             
-            <!-- Vrai Menu de Navigation -->
+            <!-- Menu de Navigation -->
             <nav class="hidden md:flex items-center space-x-2 font-medium text-sm bg-cardbg/80 border border-gray-800 p-1.5 rounded-2xl shadow-inner">
                 <button onclick="switchTab('accueil')" id="nav-accueil" class="nav-btn px-5 py-2 rounded-xl transition text-white bg-indigo-600 font-bold shadow-md">
                     <i class="fa-solid fa-house mr-2 text-xs"></i> Accueil
@@ -53,9 +53,9 @@
                 <button onclick="switchTab('support')" id="nav-support" class="nav-btn px-5 py-2 rounded-xl transition text-gray-400 hover:text-white hover:bg-cardhover">
                     <i class="fa-solid fa-headset mr-2 text-xs"></i> Support
                 </button>
-                <!-- Lien direct vers le vrai txAdmin (Port 3001) -->
-                <a href="http://51.159.213.165:3001/" target="_blank" class="px-4 py-2 rounded-xl transition text-indigo-400 hover:text-indigo-300 hover:bg-indigo-600/10 font-bold flex items-center text-sm">
-                    <i class="fa-solid fa-shield-halved mr-1.5 text-xs"></i> Panel Admin <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px] opacity-70"></i>
+                <!-- Lien vers le fichier séparé admin.html -->
+                <a href="admin.html" class="px-4 py-2 rounded-xl transition text-indigo-400 hover:text-indigo-300 hover:bg-indigo-600/10 font-bold flex items-center text-sm">
+                    <i class="fa-solid fa-shield-halved mr-1.5 text-xs"></i> Panel Admin
                 </a>
             </nav>
 
@@ -70,13 +70,13 @@
                 </a>
             </div>
         </div>
-        <!-- Menu Mobile Barre Inférieure -->
+        <!-- Menu Mobile -->
         <div class="md:hidden flex items-center justify-around bg-cardbg border-t border-gray-800 py-2.5 px-2 text-xs font-semibold">
             <button onclick="switchTab('accueil')" class="mobile-nav text-indigo-400"><i class="fa-solid fa-house block text-base mb-0.5"></i>Accueil</button>
             <button onclick="switchTab('presentation')" class="mobile-nav text-gray-400"><i class="fa-solid fa-server block text-base mb-0.5"></i>Infos</button>
             <button onclick="switchTab('vip')" class="mobile-nav text-gray-400"><i class="fa-solid fa-store block text-base mb-0.5"></i>Boutique</button>
             <button onclick="switchTab('support')" class="mobile-nav text-gray-400"><i class="fa-solid fa-headset block text-base mb-0.5"></i>Support</button>
-            <a href="http://51.159.213.165:3001/" target="_blank" class="text-indigo-400 flex flex-col items-center"><i class="fa-solid fa-shield-halved block text-base mb-0.5"></i>Admin</a>
+            <a href="admin.html" class="mobile-nav text-indigo-400 text-center"><i class="fa-solid fa-shield-halved block text-base mb-0.5"></i>Admin</a>
         </div>
     </header>
 
@@ -97,7 +97,6 @@
                 Rejoignez une communauté passionnée. Entreprises dynamiques, forces de l'ordre rigoureuses, scripts exclusifs et staff ultra-réactif.
             </p>
             
-            <!-- Boutons d'action principaux (Bouton Panel Staff relié au vrai txAdmin sur le port 3001) -->
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
                 <a href="fivem://connect/cni.tonserveur.fr" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-xl shadow-indigo-600/30 transition flex items-center justify-center space-x-3 text-base">
                     <i class="fa-solid fa-bolt text-amber-300"></i>
@@ -107,10 +106,9 @@
                     <i class="fa-solid fa-store text-indigo-400"></i>
                     <span>Voir les Tarifs VIP</span>
                 </button>
-                <a href="http://51.159.213.165:3001/" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-300 font-bold border border-indigo-500/30 transition flex items-center justify-center space-x-3 text-base shadow-lg">
+                <a href="admin.html" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-300 font-bold border border-indigo-500/30 transition flex items-center justify-center space-x-3 text-base shadow-lg">
                     <i class="fa-solid fa-shield-halved text-indigo-400"></i>
-                    <span>Panel txAdmin (Staff)</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70 ml-1"></i>
+                    <span>Panel Staff (Connexion)</span>
                 </a>
             </div>
         </div>
@@ -278,7 +276,7 @@
                 <button onclick="switchTab('presentation')" class="hover:text-indigo-400 transition">Présentation</button>
                 <button onclick="switchTab('vip')" class="hover:text-indigo-400 transition">Tarifs VIP</button>
                 <button onclick="switchTab('support')" class="hover:text-indigo-400 transition">Support</button>
-                <a href="http://51.159.213.165:3001/" target="_blank" class="hover:text-indigo-400 transition"><i class="fa-solid fa-shield-halved"></i></a>
+                <a href="admin.html" class="hover:text-indigo-400 transition"><i class="fa-solid fa-shield-halved"></i></a>
             </div>
         </div>
     </footer>
@@ -312,7 +310,7 @@
         </div>
     </div>
 
-    <!-- Script de navigation et de gestion locale -->
+    <!-- Script de navigation et gestion de la boutique/tickets -->
     <script>
         function switchTab(tabId) {
             const tabs = document.querySelectorAll('.tab-content');
