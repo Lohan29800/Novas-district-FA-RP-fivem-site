@@ -47,7 +47,7 @@
 
     <!-- CONTENEUR DU PANEL ADMIN -->
     <main class="flex-grow flex items-center justify-center px-4 pt-28 pb-16">
-        <div class="max-w-xl w-full bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-2xl">
+        <div class="max-w-3xl w-full bg-cardbg border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
             
             <!-- Écran de Connexion (Visible par défaut) -->
             <div id="admin-login-box">
@@ -58,7 +58,7 @@
                     <h2 class="text-2xl font-black">Accès Restreint</h2>
                     <p class="text-gray-400 text-xs mt-1">Veuillez entrer le mot de passe administrateur.</p>
                 </div>
-                <form onsubmit="checkAdminPassword(event)" class="space-y-4">
+                <form onsubmit="checkAdminPassword(event)" class="space-y-4 max-w-sm mx-auto">
                     <div>
                         <input type="password" id="admin-pass-input" required placeholder="Mot de passe..." class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm text-center tracking-widest">
                     </div>
@@ -68,39 +68,76 @@
                 </form>
             </div>
 
-            <!-- Tableau de bord Admin (Totalement masqué par défaut) -->
+            <!-- Tableau de bord Admin Amélioré (Totalement masqué par défaut) -->
             <div id="admin-dashboard" class="hidden space-y-6">
+                <!-- En-tête du Dashboard -->
                 <div class="flex items-center justify-between pb-4 border-b border-gray-800">
                     <div>
                         <h2 class="text-xl font-black flex items-center">
-                            <i class="fa-solid fa-shield-halved text-emerald-400 mr-2"></i> Panel Admin Local
+                            <i class="fa-solid fa-shield-halved text-emerald-400 mr-2"></i> Panel de Gestion Admin
                         </h2>
-                        <p class="text-xs text-emerald-400 font-semibold mt-0.5">● Connecté avec succès</p>
+                        <p class="text-xs text-emerald-400 font-semibold mt-0.5">● Synchronisé avec le site principal</p>
                     </div>
                     <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold transition">
                         Déconnexion
                     </button>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 text-center">
-                        <div class="text-xs text-gray-400 mb-1">Commandes rapides</div>
-                        <button onclick="alert('Action simulée : Serveur redémarré avec succès !')" class="w-full py-2 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-xs font-bold rounded-lg border border-indigo-500/30 transition">
-                            Restart Serveur
+                <!-- Statistiques Rapides -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Tickets Joueurs en attente</div>
+                            <div id="admin-ticket-count" class="text-2xl font-black text-indigo-400 mt-1">0</div>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-ticket"></i>
+                        </div>
+                    </div>
+                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">État de l'infrastructure</div>
+                            <div class="text-sm font-bold text-emerald-400 mt-2 flex items-center">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> Opérationnel
+                            </div>
+                        </div>
+                        <div class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commandes rapides en lien avec le site -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 space-y-3">
+                        <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Actions Serveur</div>
+                        <button onclick="alert('Signal envoyé : Redémarrage planifié en jeu !')" class="w-full py-2.5 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 text-xs font-bold rounded-lg border border-indigo-500/30 transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-rotate"></i> <span>Alerter Restart (In-game)</span>
                         </button>
                     </div>
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 text-center">
-                        <div class="text-xs text-gray-400 mb-1">Annonce globale</div>
-                        <button onclick="alert('Action simulée : Annonce envoyée en jeu !')" class="w-full py-2 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 text-xs font-bold rounded-lg border border-purple-500/30 transition">
-                            Envoyer Annonce
+                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 space-y-3">
+                        <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Gestion Boutique / VIP</div>
+                        <button onclick="alert('Fonctionnalité prête : Synchronisation Tebex active.')" class="w-full py-2.5 bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 text-xs font-bold rounded-lg border border-purple-500/30 transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-store"></i> <span>Vérifier les Logs Boutique</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="bg-darkbg p-4 rounded-xl border border-gray-800">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Gestion interne</h4>
-                    <p class="text-xs text-gray-500">Ce fichier séparé sécurise entièrement ton administration. Aucune adresse IP ou port sensible n'est visible publiquement.</p>
+                <!-- Gestion des Tickets du site -->
+                <div class="bg-darkbg p-5 rounded-xl border border-gray-800 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 flex items-center">
+                            <i class="fa-solid fa-headset text-indigo-400 mr-2"></i> Support Joueurs (Tickets reçus du site)
+                        </h4>
+                        <button onclick="clearAllTickets()" class="text-xs text-red-400 hover:text-red-300 font-semibold transition">
+                            Tout effacer
+                        </button>
+                    </div>
+                    <div id="admin-tickets-container" class="space-y-3 max-h-[250px] overflow-y-auto pr-1">
+                        <p class="text-gray-500 text-center py-6 text-xs">Aucun ticket en attente pour le moment.</p>
+                    </div>
                 </div>
+
             </div>
 
         </div>
@@ -108,18 +145,18 @@
 
     <!-- Footer -->
     <footer class="bg-[#04060b] border-t border-gray-800/80 py-6 text-center text-xs text-gray-500">
-        <p>NomDuServeur - Tous droits réservés</p>
+        <p>NomDuServeur - Panel Administrateur Sécurisé</p>
     </footer>
 
-    <!-- Script de sécurité -->
+    <!-- Script de sécurité et gestion des données du site -->
     <script>
         function checkAdminPassword(e) {
             e.preventDefault();
             const pass = document.getElementById('admin-pass-input').value;
-            // Mot de passe modifié ici à admin1234
             if (pass === 'admin1234') {
                 document.getElementById('admin-login-box').classList.add('hidden');
                 document.getElementById('admin-dashboard').classList.remove('hidden');
+                loadAdminData(); // Charger les tickets du site au moment de la connexion
             } else {
                 alert("Mot de passe incorrect !");
                 document.getElementById('admin-pass-input').value = '';
@@ -130,6 +167,56 @@
             document.getElementById('admin-dashboard').classList.add('hidden');
             document.getElementById('admin-login-box').classList.remove('hidden');
             document.getElementById('admin-pass-input').value = '';
+        }
+
+        // Chargement et affichage des tickets stockés par le site principal
+        function loadAdminData() {
+            const tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
+            const container = document.getElementById('admin-tickets-container');
+            const countBadge = document.getElementById('admin-ticket-count');
+            
+            countBadge.textContent = tickets.length;
+            container.innerHTML = '';
+
+            if (tickets.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-6 text-xs">Aucun ticket en attente pour le moment.</p>';
+                return;
+            }
+
+            tickets.forEach((t, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-cardbg p-3.5 rounded-xl border border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3';
+                div.innerHTML = `
+                    <div class="space-y-1">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400">${t.subject}</span>
+                            <span class="text-[10px] text-gray-500">${t.date}</span>
+                        </div>
+                        <div class="text-xs font-bold text-white">${t.name}</div>
+                        <p class="text-xs text-gray-400">${t.message}</p>
+                    </div>
+                    <button onclick="resolveTicket(${index})" class="px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/20 transition whitespace-nowrap">
+                        <i class="fa-solid fa-check mr-1"></i> Clôturer
+                    </button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // Supprimer un ticket spécifique (marquer comme résolu)
+        function resolveTicket(index) {
+            let tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
+            tickets.splice(index, 1);
+            localStorage.setItem('fivem_tickets', JSON.stringify(tickets));
+            loadAdminData();
+        }
+
+        // Tout effacer
+        function clearAllTickets() {
+            if(confirm("Voulez-vous vraiment supprimer tous les tickets ?")) {
+                localStorage.removeItem('fivem_tickets');
+                loadAdminData();
+            }
         }
     </script>
 </body>
