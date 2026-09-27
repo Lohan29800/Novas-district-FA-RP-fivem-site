@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NomDuServeur - Panel Admin Ultime</title>
+    <title id="page-title">NomDuServeur - Serveur FiveM RP Inédit</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -26,331 +26,291 @@
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between">
 
-    <!-- Header simple -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#070a13]/90 backdrop-blur-md border-b border-gray-800/80">
+    <!-- BANNIÈRE D'ANNONCE DYNAMIQUE -->
+    <div id="site-announcement-banner" class="hidden bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 text-white text-xs py-2 px-4 text-center font-bold sticky top-0 z-50 shadow-lg flex items-center justify-center space-x-2">
+        <i class="fa-solid fa-bullhorn animate-bounce"></i>
+        <span id="announcement-text-content">Chargement de l'annonce...</span>
+        <button onclick="closeAnnouncement()" class="ml-4 opacity-80 hover:opacity-100 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-[#070a13]/85 backdrop-blur-md border-b border-gray-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="index.html" class="flex items-center space-x-3 group text-left focus:outline-none">
+            <a href="index.html" class="flex items-center space-x-3 group focus:outline-none">
                 <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition">
                     <i class="fa-solid fa-gamepad text-white text-lg"></i>
                 </div>
                 <div>
-                    <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent block">NOMDU<span class="text-indigo-400">SERVEUR</span></span>
-                    <span class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold block -mt-1">Nexus Admin v4.0</span>
+                    <span id="header-brand-name" class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent block">NOMDU<span class="text-indigo-400">SERVEUR</span></span>
+                    <span id="header-server-status" class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold block -mt-1">● Serveur En Ligne</span>
                 </div>
             </a>
-            
-            <a href="index.html" class="px-4 py-2 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 transition text-gray-300 hover:text-white text-xs font-bold flex items-center">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Retour au site
-            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-gray-300">
+                <a href="#accueil" class="hover:text-indigo-400 transition">Accueil</a>
+                <a href="#presentation" class="hover:text-indigo-400 transition">Le Serveur</a>
+                <a href="#features" class="hover:text-indigo-400 transition">Fonctionnalités</a>
+                <a href="#faq" class="hover:text-indigo-400 transition">FAQ</a>
+                <a href="#support" class="hover:text-indigo-400 transition">Support</a>
+            </nav>
+            <div class="flex items-center space-x-3">
+                <button onclick="copyServerIP()" class="px-4 py-2.5 rounded-xl bg-cardbg border border-gray-800 hover:border-indigo-500/50 text-gray-300 hover:text-white text-xs font-bold transition flex items-center shadow-sm" title="Copier l'IP">
+                    <i class="fa-solid fa-copy mr-2 text-indigo-400"></i> <span id="ip-btn-text">Copier IP</span>
+                </button>
+                <a href="fivem://connect/51.159.213.165:30001" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 transition flex items-center">
+                    <i class="fa-solid fa-play mr-2"></i> Rejoindre
+                </a>
+                <a href="admin.html" title="Panel Admin" class="w-9 h-9 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition">
+                    <i class="fa-solid fa-lock text-xs"></i>
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- CONTENEUR DU PANEL ADMIN -->
-    <main class="flex-grow flex items-center justify-center px-4 pt-28 pb-16">
-        <div class="max-w-4xl w-full bg-cardbg border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+    <!-- SECTION ACCUEIL (HERO) -->
+    <main class="flex-grow">
+        <section id="accueil" class="relative pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+            <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-20 pointer-events-none">
+                <div class="w-[500px] h-[500px] bg-indigo-600/30 rounded-full blur-3xl"></div>
+            </div>
             
-            <!-- Écran de Connexion (Visible par défaut) -->
-            <div id="admin-login-box">
-                <div class="text-center mb-8">
-                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center mx-auto mb-3 text-xl border border-indigo-500/30">
-                        <i class="fa-solid fa-fingerprint"></i>
+            <span class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold inline-block mb-6 uppercase tracking-widest shadow-inner">
+                <i class="fa-solid fa-star mr-1.5 text-amber-400"></i> Le meilleur du Roleplay Francophone sur FiveM
+            </span>
+            
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight max-w-4xl mx-auto leading-tight">
+                Plongez dans l'expérience <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">Roleplay Ultime</span>
+            </h1>
+            
+            <p class="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto mt-6 leading-relaxed">
+                Économie réaliste, gangs uniques, forces de l'ordre actives, entreprises inédites et un staff à l'écoute. Créez votre propre histoire dès aujourd'hui sur notre serveur.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="fivem://connect/51.159.213.165:30001" class="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white text-sm shadow-xl shadow-indigo-600/30 transition flex items-center">
+                    <i class="fa-solid fa-server mr-2"></i> Se connecter au serveur
+                </a>
+                <a href="https://discord.gg/tondiscord" target="_blank" class="px-6 py-3.5 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 font-bold text-gray-300 hover:text-white text-sm transition flex items-center">
+                    <i class="fa-brands fa-discord mr-2 text-indigo-400"></i> Rejoindre le Discord
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION PRÉSENTATION FIVEM -->
+        <section id="presentation" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl sm:text-3xl font-black">Pourquoi choisir notre serveur ?</h2>
+                <p class="text-xs sm:text-sm text-gray-400 mt-2">Découvrez les piliers de notre gameplay immersif.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-cardbg/80 backdrop-blur border border-gray-800 hover:border-indigo-500/40 p-6 rounded-2xl space-y-3 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-scale-balanced"></i>
                     </div>
-                    <h2 class="text-2xl font-black">Sécurité Maximale</h2>
-                    <p class="text-gray-400 text-xs mt-1">Entrez votre mot de passe administrateur (`admin1234`).</p>
+                    <h3 class="text-lg font-black">Économie Équilibrée</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Une économie travaillée pour valoriser chaque métier légal comme illégal, avec des business gérés par de vrais joueurs.</p>
                 </div>
-                <form onsubmit="checkAdminPassword(event)" class="space-y-4 max-w-sm mx-auto">
-                    <div>
-                        <input type="password" id="admin-pass-input" required placeholder="Mot de passe..." class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm text-center tracking-widest">
+                <div class="bg-cardbg/80 backdrop-blur border border-gray-800 hover:border-purple-500/40 p-6 rounded-2xl space-y-3 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-masks-theater"></i>
                     </div>
-                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 font-bold text-white shadow-lg transition text-sm">
-                        Déverrouiller le Panel
+                    <h3 class="text-lg font-black">Illégal Immersif</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Système de drug-runs, braquages exclusifs, blanchiment d'argent et guerres de territoires scriptées sur mesure.</p>
+                </div>
+                <div class="bg-cardbg/80 backdrop-blur border border-gray-800 hover:border-emerald-500/40 p-6 rounded-2xl space-y-3 transition group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-lg font-black">Légal & Secours</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Recrutements ouverts pour les forces de l'ordre, les services de santé et les différentes entreprises de la ville.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION FONCTIONNALITÉS & STATS LIVE -->
+        <section id="features" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800/50">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4">
+                    <span class="text-indigo-400 text-xs font-bold uppercase tracking-widest">Optimisation & Exclusivités</span>
+                    <h2 class="text-2xl sm:text-3xl font-black">Un serveur fluide, pensé pour votre confort</h2>
+                    <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+                        Profitez d'un scriptage optimisé garantissant une fluidité maximale, d'un staff actif et bienveillant, ainsi que de mises à jour régulières basées sur les retours de la communauté.
+                    </p>
+                    <ul class="space-y-2 text-xs text-gray-300 font-medium">
+                        <li><i class="fa-solid fa-check text-indigo-400 mr-2"></i> Mapping exclusif et optimisé</li>
+                        <li><i class="fa-solid fa-check text-indigo-400 mr-2"></i> Véhicules moddés importés réalistes</li>
+                        <li><i class="fa-solid fa-check text-indigo-400 mr-2"></i> Radio vocale de proximité haute qualité</li>
+                    </ul>
+                </div>
+                <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-4">
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                        <span class="text-xs font-bold text-gray-300"><i class="fa-solid fa-circle text-emerald-400 text-[8px] mr-2"></i> État du Serveur</span>
+                        <span id="widget-status" class="text-emerald-400 text-xs font-bold">En Ligne</span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                        <span class="text-xs font-bold text-gray-300"><i class="fa-solid fa-users text-indigo-400 mr-2"></i> Joueurs Connectés</span>
+                        <span id="player-count" class="text-indigo-400 text-xs font-bold">78 / 128</span>
+                    </div>
+                    <div class="w-full bg-darkbg rounded-full h-2 overflow-hidden border border-gray-800">
+                        <div id="player-progress" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-full w-[60%] transition-all duration-500"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] text-gray-400 pt-1">
+                        <span>Framework : ESX Legacy</span>
+                        <span>IP : 51.159.213.165:30001</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION FAQ INTERACTIVE -->
+        <section id="faq" class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-gray-800/50">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl sm:text-3xl font-black">Questions Fréquentes</h2>
+                <p class="text-xs sm:text-sm text-gray-400 mt-2">Tout ce que vous devez savoir avant de nous rejoindre.</p>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-cardbg border border-gray-800 rounded-xl p-5 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center font-bold text-sm">
+                        <span>Comment rejoindre le serveur FiveM ?</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-indigo-400 transition-transform"></i>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-3 hidden leading-relaxed">Il vous suffit de lancer FiveM, d'appuyer sur F8 et de taper <code class="bg-darkbg px-2 py-0.5 rounded text-indigo-300">connect 51.159.213.165:30001</code> ou simplement de cliquer sur le bouton "Rejoindre" en haut de notre site.</p>
+                </div>
+                <div class="bg-cardbg border border-gray-800 rounded-xl p-5 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center font-bold text-sm">
+                        <span>Le serveur est-il sous whitelist ?</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-indigo-400 transition-transform"></i>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-3 hidden leading-relaxed">Non, l'accès est libre (Free-Access) pour permettre à tous de découvrir l'ambiance, mais un règlement strict est appliqué en jeu pour garantir un RP de qualité.</p>
+                </div>
+                <div class="bg-cardbg border border-gray-800 rounded-xl p-5 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center font-bold text-sm">
+                        <span>Où faire une réclamation ou poser une question ?</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-indigo-400 transition-transform"></i>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-3 hidden leading-relaxed">Vous pouvez utiliser le formulaire de support ci-dessous ou directement passer par notre serveur Discord officiel.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION SUPPORT / TICKETS -->
+        <section id="support" class="py-16 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+            <div class="bg-cardbg border border-gray-800 p-8 rounded-2xl shadow-xl space-y-6">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl font-black">Besoin d'aide sur le serveur ?</h2>
+                    <p class="text-xs text-gray-400">Envoyez un ticket directement depuis le site, il sera instantanément transmis au panel administrateur.</p>
+                </div>
+                <form onsubmit="sendSupportTicket(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Votre Nom / Pseudo IG</label>
+                            <input type="text" id="ticket-name" required placeholder="Ex: John Doe" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Sujet</label>
+                            <select id="ticket-subject" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition">
+                                <option value="Problème en jeu">Problème en jeu / Bug</option>
+                                <option value="Question Boutique">Question Boutique / Don</option>
+                                <option value="Demande Whitelist">Demande Whitelist / Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">Message</label>
+                        <textarea id="ticket-message" rows="4" required placeholder="Décrivez votre problème en détail..." class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white text-xs shadow-lg transition cursor-pointer">
+                        Envoyer le ticket au Staff
                     </button>
                 </form>
             </div>
-
-            <!-- Tableau de bord Admin Ultime (Masqué par défaut) -->
-            <div id="admin-dashboard" class="hidden space-y-6">
-                <!-- En-tête du Dashboard -->
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-gray-800 gap-4">
-                    <div>
-                        <h2 class="text-xl font-black flex items-center">
-                            <i class="fa-solid fa-rocket text-indigo-400 mr-2"></i> Nexus Control Center
-                        </h2>
-                        <p class="text-xs text-emerald-400 font-semibold mt-0.5 flex items-center">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping mr-2"></span> Session active et sécurisée
-                        </p>
-                    </div>
-                    <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold transition">
-                        Déconnexion
-                    </button>
-                </div>
-
-                <!-- Grille de Contrôle Rapide -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <!-- Statut Serveur -->
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
-                        <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">État du Serveur</div>
-                        <div class="flex items-center justify-between">
-                            <span id="server-status-label" class="text-xs font-bold text-emerald-400">En Ligne</span>
-                            <button onclick="toggleServerStatus()" id="server-status-btn" class="px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold rounded-lg border border-red-500/30 transition">
-                                Maintenance
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Tickets en attente -->
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex items-center justify-between">
-                        <div>
-                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Tickets Joueurs</div>
-                            <div id="admin-ticket-count" class="text-2xl font-black text-indigo-400 mt-1">0</div>
-                        </div>
-                        <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-headset"></i>
-                        </div>
-                    </div>
-
-                    <!-- Commandes Flash -->
-                    <div class="bg-darkbg p-4 rounded-xl border border-gray-800 flex flex-col justify-between space-y-3">
-                        <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Actions Rapides</div>
-                        <button onclick="triggerQuickRestart()" class="w-full py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold rounded-lg border border-amber-500/30 transition">
-                            <i class="fa-solid fa-triangle-exclamation mr-1"></i> Alerte Restart
-                        </button>
-                    </div>
-                </div>
-
-                <!-- NOUVEAU : Gestion des Joueurs / Sanctions en Direct -->
-                <div class="bg-darkbg p-5 rounded-xl border border-gray-800 space-y-4">
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 flex items-center">
-                        <span class="w-7 h-7 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center mr-2 text-xs">
-                            <i class="fa-solid fa-users"></i>
-                        </span> Joueurs en Ligne & Modération Rapide
-                    </h4>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs">
-                            <thead>
-                                <tr class="text-gray-400 border-b border-gray-800">
-                                    <th class="pb-2 font-bold">ID / Joueur</th>
-                                    <th class="pb-2 font-bold">Statut</th>
-                                    <th class="pb-2 font-bold text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="online-players-list" class="divide-y divide-gray-800/50">
-                                <tr>
-                                    <td class="py-3 font-semibold text-white">[01] Admin_Lohan</td>
-                                    <td class="py-3 text-emerald-400">Fondateur</td>
-                                    <td class="py-3 text-right">
-                                        <span class="text-gray-500 text-[10px]">Protégé</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-3 font-semibold text-white">[02] JoueurTest</td>
-                                    <td class="py-3 text-indigo-400">Citoyen</td>
-                                    <td class="py-3 text-right space-x-2">
-                                        <button onclick="kickPlayer('JoueurTest')" class="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-bold rounded border border-amber-500/20 transition">Kick</button>
-                                        <button onclick="banPlayer('JoueurTest')" class="px-2.5 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold rounded border border-red-500/20 transition">Ban</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Générateur d'Annonce Live pour le site -->
-                <div class="bg-darkbg p-5 rounded-xl border border-gray-800 space-y-4">
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 flex items-center">
-                        <span class="w-7 h-7 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center mr-2 text-xs">
-                            <i class="fa-solid fa-bullhorn"></i>
-                        </span> Diffuser une Annonce Globale sur le Site
-                    </h4>
-                    <div class="space-y-3">
-                        <input type="text" id="global-announcement-text" placeholder="Ex: Événement course ce soir à 21h !" class="w-full px-4 py-2.5 rounded-xl bg-cardbg border border-gray-800 text-white text-xs focus:outline-none focus:border-purple-500 transition">
-                        <button onclick="publishGlobalAnnouncement()" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-paper-plane"></i> <span>Diffuser l'annonce instantanément</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Console de Logs en Direct -->
-                <div class="bg-black/60 p-4 rounded-xl border border-gray-800 font-mono text-[11px] space-y-2">
-                    <div class="flex items-center justify-between border-b border-gray-800 pb-2 text-gray-400">
-                        <span class="flex items-center"><i class="fa-solid fa-terminal text-emerald-400 mr-2"></i> Console d'activité du Nexus</span>
-                        <span class="text-[10px] text-emerald-400 animate-pulse">● Live Stream</span>
-                    </div>
-                    <div id="terminal-logs" class="space-y-1 max-h-32 overflow-y-auto text-gray-300 pr-1">
-                        <div>[01:14:00] [SYSTEM] Panel admin sécurisé chargé avec succès.</div>
-                    </div>
-                </div>
-
-                <!-- Gestion des Tickets du site -->
-                <div class="bg-darkbg p-5 rounded-xl border border-gray-800 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 flex items-center">
-                            <i class="fa-solid fa-ticket text-indigo-400 mr-2"></i> Boîte de Réception Support
-                        </h4>
-                        <button onclick="clearAllTickets()" class="text-xs text-red-400 hover:text-red-300 font-semibold transition">
-                            Tout effacer
-                        </button>
-                    </div>
-                    <div id="admin-tickets-container" class="space-y-3 max-h-[220px] overflow-y-auto pr-1">
-                        <p class="text-gray-500 text-center py-6 text-xs">Aucun ticket en attente pour le moment.</p>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#04060b] border-t border-gray-800/80 py-6 text-center text-xs text-gray-500">
-        <p>NomDuServeur - Nexus Admin Panel</p>
+    <!-- FOOTER -->
+    <footer class="bg-[#04060b] border-t border-gray-800/80 py-8 text-center text-xs text-gray-500 space-y-2">
+        <p id="footer-text">NomDuServeur - Tous droits réservés. Non affilié à Rockstar Games.</p>
+        <p class="text-[10px]">Développé pour la communauté FiveM</p>
     </footer>
 
-    <!-- Scripts Améliorés -->
+    <!-- SCRIPTS DE SYNCHRONISATION & INTERACTIVITÉ -->
     <script>
-        function checkAdminPassword(e) {
-            e.preventDefault();
-            const pass = document.getElementById('admin-pass-input').value;
-            if (pass === 'admin1234') {
-                document.getElementById('admin-login-box').classList.add('hidden');
-                document.getElementById('admin-dashboard').classList.remove('hidden');
-                loadAdminData();
-                checkServerStateUI();
-                addLogEntry("Administrateur connecté avec succès.");
-            } else {
-                alert("Mot de passe incorrect !");
-                document.getElementById('admin-pass-input').value = '';
-            }
-        }
-
-        function logoutAdmin() {
-            document.getElementById('admin-dashboard').classList.add('hidden');
-            document.getElementById('admin-login-box').classList.remove('hidden');
-            document.getElementById('admin-pass-input').value = '';
-        }
-
-        function loadAdminData() {
-            const tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
-            const container = document.getElementById('admin-tickets-container');
-            const countBadge = document.getElementById('admin-ticket-count');
-            
-            countBadge.textContent = tickets.length;
-            container.innerHTML = '';
-
-            if (tickets.length === 0) {
-                container.innerHTML = '<p class="text-gray-500 text-center py-6 text-xs">Aucun ticket en attente pour le moment.</p>';
-                return;
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. Récupération des données personnalisées du panel admin (si configurées)
+            const savedServerName = localStorage.getItem('fivem_server_name');
+            if(savedServerName) {
+                document.getElementById('page-title').textContent = savedServerName + " - Serveur FiveM";
+                document.getElementById('header-brand-name').innerHTML = savedServerName.toUpperCase();
+                document.getElementById('footer-text').textContent = savedServerName + " - Tous droits réservés. Non affilié à Rockstar Games.";
             }
 
-            tickets.forEach((t, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-cardbg p-3.5 rounded-xl border border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3';
-                div.innerHTML = `
-                    <div class="space-y-1">
-                        <div class="flex items-center space-x-2">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400">${t.subject}</span>
-                            <span class="text-[10px] text-gray-500">${t.date}</span>
-                        </div>
-                        <div class="text-xs font-bold text-white">${t.name}</div>
-                        <p class="text-xs text-gray-400">${t.message}</p>
-                    </div>
-                    <button onclick="resolveTicket(${index})" class="px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/20 transition whitespace-nowrap">
-                        <i class="fa-solid fa-check mr-1"></i> Clôturer
-                    </button>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function resolveTicket(index) {
-            let tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
-            const removed = tickets.splice(index, 1);
-            localStorage.setItem('fivem_tickets', JSON.stringify(tickets));
-            loadAdminData();
-            if(removed.length > 0) {
-                addLogEntry(`Ticket de ${removed[0].name} clôturé.`);
-            }
-        }
-
-        function clearAllTickets() {
-            if(confirm("Voulez-vous vraiment supprimer tous les tickets ?")) {
-                localStorage.removeItem('fivem_tickets');
-                loadAdminData();
-                addLogEntry("Tous les tickets ont été purgés.");
-            }
-        }
-
-        function toggleServerStatus() {
-            let currentStatus = localStorage.getItem('server_maintenance') === 'true';
-            let newStatus = !currentStatus;
-            localStorage.setItem('server_maintenance', newStatus);
-            checkServerStateUI();
-            if(newStatus) {
-                addLogEntry("⚠️ ALERTE : Serveur basculé en mode MAINTENANCE.");
-            } else {
-                addLogEntry("✅ Serveur remis en ligne.");
-            }
-        }
-
-        function checkServerStateUI() {
+            // 2. Gestion du mode maintenance
             const isMaintenance = localStorage.getItem('server_maintenance') === 'true';
-            const label = document.getElementById('server-status-label');
-            const btn = document.getElementById('server-status-btn');
+            const statusHeader = document.getElementById('header-server-status');
+            const widgetStatus = document.getElementById('widget-status');
             if(isMaintenance) {
-                label.textContent = "En Maintenance";
-                label.className = "text-xs font-bold text-amber-400";
-                btn.textContent = "Mettre en Ligne";
-                btn.className = "px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold rounded-lg border border-emerald-500/30 transition";
-            } else {
-                label.textContent = "En Ligne";
-                label.className = "text-xs font-bold text-emerald-400";
-                btn.textContent = "Maintenance";
-                btn.className = "px-3 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-xs font-bold rounded-lg border border-red-500/30 transition";
+                statusHeader.textContent = "● En Maintenance";
+                statusHeader.className = "text-[10px] uppercase tracking-widest text-amber-400 font-bold block -mt-1";
+                widgetStatus.textContent = "Maintenance";
+                widgetStatus.className = "text-amber-400 text-xs font-bold";
             }
+
+            // 3. Gestion de la bannière d'annonce globale
+            const savedAnnouncement = localStorage.getItem('site_announcement');
+            const banner = document.getElementById('site-announcement-banner');
+            const textContent = document.getElementById('announcement-text-content');
+            if(savedAnnouncement) {
+                textContent.textContent = savedAnnouncement;
+                banner.classList.remove('hidden');
+            }
+        });
+
+        function closeAnnouncement() {
+            document.getElementById('site-announcement-banner').classList.add('hidden');
         }
 
-        function publishGlobalAnnouncement() {
-            const text = document.getElementById('global-announcement-text').value.trim();
-            if(!text) {
-                alert("Veuillez écrire une annonce !");
-                return;
-            }
-            localStorage.setItem('site_announcement', text);
-            document.getElementById('global-announcement-text').value = '';
-            alert("Annonce diffusée sur le site !");
-            addLogEntry(`Annonce publiée : "${text}"`);
+        // Copie rapide de l'IP exacte
+        function copyServerIP() {
+            const ip = "connect 51.159.213.165:30001";
+            navigator.clipboard.writeText(ip);
+            const btnText = document.getElementById('ip-btn-text');
+            btnText.textContent = "IP Copiée !";
+            setTimeout(() => {
+                btnText.textContent = "Copier IP";
+            }, 2000);
         }
 
-        function triggerQuickRestart() {
-            if(confirm("Envoyer l'alerte de redémarrage immédiat ?")) {
-                localStorage.setItem('site_announcement', "⚠️ REDÉMARRAGE DU SERVEUR EN COURS - Préparez-vous !");
-                addLogEntry("⚠️ Alerte de redémarrage diffusée.");
-                alert("Signal envoyé !");
-            }
+        // Accordéon FAQ
+        function toggleFaq(element) {
+            const p = element.querySelector('p');
+            const icon = element.querySelector('i');
+            p.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
         }
 
-        function kickPlayer(name) {
-            if(confirm(`Voulez-vous vraiment expulser (Kick) le joueur ${name} ?`)) {
-                addLogEntry(`⚡ Joueur ${name}`) expulsé du serveur.;
-                alert(`Le joueur ${name} a été expulsé.`);
-            }
-        }
-
-        function banPlayer(name) {
-            if(confirm(`⚠️ Voulez-vous bannir définitivement le joueur ${name} ?`)) {
-                addLogEntry(`🔨 BANNISSEMENT : Le joueur ${name} a été banni.`);
-                alert(`Le joueur ${name} a été banni du serveur.`);
-            }
-        }
-
-        function addLogEntry(text) {
-            const logsContainer = document.getElementById('terminal-logs');
+        // Envoi d'un ticket vers le localStorage du panel admin
+        function sendSupportTicket(e) {
+            e.preventDefault();
+            const name = document.getElementById('ticket-name').value.trim();
+            const subject = document.getElementById('ticket-subject').value;
+            const message = document.getElementById('ticket-message').value.trim();
+            
             const now = new Date();
-            const timeString = now.toTimeString().split(' ')[0];
-            const div = document.createElement('div');
-            div.textContent = `[${timeString}] ${text}`;
-            logsContainer.appendChild(div);
-            logsContainer.scrollTop = logsContainer.scrollHeight;
+            const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            const newTicket = {
+                name: name,
+                subject: subject,
+                message: message,
+                date: dateStr
+            };
+
+            let tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
+            tickets.push(newTicket);
+            localStorage.setItem('fivem_tickets', JSON.stringify(tickets));
+
+            alert("✅ Votre ticket a bien été envoyé au staff ! Il est consultable dans le panel d'administration.");
+            document.getElementById('ticket-name').value = '';
+            document.getElementById('ticket-message').value = '';
         }
     </script>
 </body>
