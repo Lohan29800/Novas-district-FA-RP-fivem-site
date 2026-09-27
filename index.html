@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NomDuServeur - Serveur FiveM Roleplay Officiel</title>
+    <title>NomDuServeur - Serveur FiveM Roleplay & Économie Réaliste</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -13,8 +13,9 @@
             theme: {
                 extend: {
                     colors: {
-                        darkbg: '#0b0f19',
-                        cardbg: '#111827',
+                        darkbg: '#070a13',
+                        cardbg: '#0f172a',
+                        cardhover: '#1e293b',
                         accent: '#6366f1',
                         accenthover: '#4f46e5'
                     }
@@ -25,59 +26,62 @@
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased selection:bg-indigo-500 selection:text-white">
 
-    <!-- Écran de Maintenance Officiel -->
-    <div id="maintenance-screen" class="fixed inset-0 z-[100] bg-darkbg flex items-center justify-center p-6 hidden">
-        <div class="max-w-md w-full bg-cardbg border border-gray-800 rounded-3xl p-8 text-center shadow-2xl relative">
-            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-3xl shadow-xl">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
+    <!-- Écran de Maintenance Global -->
+    <div id="maintenance-screen" class="fixed inset-0 z-[100] bg-[#070a13] flex items-center justify-center p-6 hidden">
+        <div class="max-w-md w-full bg-cardbg border border-gray-800 rounded-3xl p-8 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-red-500"></div>
+            <div class="w-20 h-20 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-3xl shadow-xl mb-6">
+                <i class="fa-solid fa-screwdriver-wrench animate-bounce"></i>
             </div>
-            <div class="pt-6">
-                <h2 class="text-2xl font-black mb-2">Maintenance en cours</h2>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                    Le serveur FiveM et la boutique officielle sont en cours de mise à jour. Suivez l'avancement sur notre Discord.
-                </p>
-                <a href="https://discord.gg/votreinvite" target="_blank" class="inline-flex items-center justify-center w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30 mb-4">
-                    <i class="fa-brands fa-discord mr-2"></i> Rejoindre le Discord
-                </a>
-                <a href="admin.html" class="text-xs text-gray-500 hover:text-gray-300 transition block">
-                    Connexion Panel Admin
-                </a>
-            </div>
+            <h2 class="text-2xl font-black mb-2">Maintenance en cours</h2>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                Le serveur FiveM et ses infrastructures sont actuellement en cours de mise à jour pour vous offrir une meilleure expérience. Revenez vite !
+            </p>
+            <a href="https://discord.gg/votreinvite" target="_blank" class="inline-flex items-center justify-center w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30 mb-4">
+                <i class="fa-brands fa-discord mr-2"></i> Suivre l'avancement sur Discord
+            </a>
+            <a href="admin.html" class="text-xs text-gray-500 hover:text-gray-300 transition block">
+                Accès Panel Staff
+            </a>
         </div>
     </div>
 
-    <!-- Header / Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-darkbg/85 backdrop-blur-md border-b border-gray-800">
+    <!-- Header / Navbar Sticky -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#070a13]/85 backdrop-blur-md border-b border-gray-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="#accueil" class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+            <a href="#accueil" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition">
                     <i class="fa-solid fa-gamepad text-white text-lg"></i>
                 </div>
-                <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent">NOM DU SERVEUR</span>
+                <div>
+                    <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent block">NOMDU<span class="text-indigo-400">SERVEUR</span></span>
+                    <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold block -mt-1"><span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping mr-1"></span> ESX / QBCore</span>
+                </div>
             </a>
             
-            <nav class="hidden md:flex items-center space-x-8 font-medium">
+            <!-- Navigation Desktop -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
                 <a href="#accueil" class="hover:text-indigo-400 transition">Accueil</a>
                 
-                <!-- MENU DÉROULANT CATÉGORIES -->
+                <!-- Menu déroulant Catégories -->
                 <div class="relative group">
                     <button class="flex items-center space-x-2 hover:text-indigo-400 transition py-2 focus:outline-none">
                         <span>Catégories</span>
-                        <i class="fa-solid fa-chevron-down text-xs transition-transform duration-200 group-hover:rotate-180"></i>
+                        <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200 group-hover:rotate-180"></i>
                     </button>
                     <div class="absolute top-full left-0 w-60 pt-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
                         <div class="bg-cardbg border border-gray-800 rounded-2xl p-2 shadow-2xl space-y-1">
-                            <a href="#presentation" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 hover:text-white transition">
-                                <i class="fa-solid fa-server text-indigo-400 w-5"></i> <span>Présentation</span>
+                            <a href="#presentation" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-cardhover text-gray-300 hover:text-white transition">
+                                <i class="fa-solid fa-server text-indigo-400 w-5"></i> <span>Présentation & Stats</span>
                             </a>
-                            <a href="#boutique" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 hover:text-white transition">
+                            <a href="#boutique" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-cardhover text-gray-300 hover:text-white transition">
                                 <i class="fa-solid fa-store text-indigo-400 w-5"></i> <span>Boutique VIP</span>
                             </a>
-                            <a href="#support" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-gray-300 hover:text-white transition">
-                                <i class="fa-solid fa-headset text-indigo-400 w-5"></i> <span>Support / Tickets</span>
+                            <a href="#support" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-cardhover text-gray-300 hover:text-white transition">
+                                <i class="fa-solid fa-headset text-indigo-400 w-5"></i> <span>Support & Tickets</span>
                             </a>
-                            <div class="border-t border-gray-800 my-1"></div>
-                            <a href="admin.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-gray-800 text-sm text-indigo-400 hover:text-indigo-300 transition font-semibold">
+                            <div class="border-t border-gray-800/80 my-1"></div>
+                            <a href="admin.html" class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-indigo-600/10 text-indigo-400 hover:text-indigo-300 transition font-semibold">
                                 <i class="fa-solid fa-shield-halved w-5"></i> <span>Panel Admin</span>
                             </a>
                         </div>
@@ -90,12 +94,13 @@
                 <a href="admin.html" class="text-indigo-400 font-bold hover:text-indigo-300 transition flex items-center"><i class="fa-solid fa-shield-halved mr-1.5"></i> Admin</a>
             </nav>
 
+            <!-- Actions Navbar -->
             <div class="flex items-center space-x-4">
-                <button onclick="openCart()" class="relative p-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 transition text-gray-300 hover:text-white" title="Panier Boutique">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                <button onclick="openCart()" class="relative p-3 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 transition text-gray-300 hover:text-white group" title="Panier Boutique">
+                    <i class="fa-solid fa-cart-shopping group-hover:scale-110 transition"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-indigo-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold hidden shadow-lg shadow-indigo-600/50">0</span>
                 </button>
-                <a href="fivem://connect/cni.tonserveur.fr" class="hidden sm:inline-flex items-center px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5">
+                <a href="fivem://connect/cni.tonserveur.fr" class="hidden sm:inline-flex items-center px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5 text-sm">
                     <i class="fa-solid fa-play mr-2 text-xs"></i> Connexion Jeu
                 </a>
             </div>
@@ -103,99 +108,131 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="accueil" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-b from-darkbg via-[#111827] to-darkbg">
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center relative z-10">
-            <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-semibold mb-6">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> Whitelist Ouverte • Serveur Optimisé ESX / QBCore
+    <section id="accueil" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-gradient-to-b from-[#070a13] via-[#0f172a]/40 to-[#070a13]">
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/15 rounded-full blur-[120px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center relative z-10">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs sm:text-sm font-semibold mb-6 shadow-inner">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> Nouvelle Saison • Économie Équilibrée & Illégale Avancée
             </div>
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-                Vivez Votre Histoire sur <br><span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">NomDuServeur RP</span>
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-tight">
+                Vivez Votre Légende sur <br><span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">NomDuServeur RP</span>
             </h1>
-            <p class="max-w-2xl mx-auto text-lg sm:text-xl text-gray-400 mb-10">
-                Plongez dans un univers semi-serious doté d'une économie ultra-réaliste, de scripts exclusifs et d'une administration active.
+            <p class="max-w-2xl mx-auto text-base sm:text-lg text-gray-400 mb-10 leading-relaxed">
+                Rejoignez une communauté passionnée. Entreprises dynamiques, forces de l'ordre rigoureuses, scripts exclusifs et staff ultra-réactif.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="fivem://connect/cni.tonserveur.fr" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-xl shadow-indigo-600/30 transition flex items-center justify-center space-x-3 text-lg">
-                    <i class="fa-solid fa-bolt"></i>
-                    <span>Rejoindre le Serveur</span>
+                <a href="fivem://connect/cni.tonserveur.fr" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-xl shadow-indigo-600/30 transition flex items-center justify-center space-x-3 text-base">
+                    <i class="fa-solid fa-bolt text-amber-300"></i>
+                    <span>Lancer FiveM Directement</span>
                 </a>
-                <a href="https://discord.gg/votreinvite" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold border border-gray-700 transition flex items-center justify-center space-x-3 text-lg">
-                    <i class="fa-brands fa-discord text-indigo-400"></i>
+                <a href="https://discord.gg/votreinvite" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cardbg hover:bg-cardhover text-white font-bold border border-gray-800 transition flex items-center justify-center space-x-3 text-base shadow-lg">
+                    <i class="fa-brands fa-discord text-indigo-400 text-lg"></i>
                     <span>Rejoindre le Discord</span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Presentation Section -->
-    <section id="presentation" class="py-24 bg-darkbg border-t border-gray-800/50">
+    <!-- Presentation & Stats Section -->
+    <section id="presentation" class="py-24 bg-darkbg border-t border-gray-800/50 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <span class="text-indigo-400 font-bold uppercase tracking-wider text-sm">Informations Serveur</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4">Présentation Générale</h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Statistiques connectées en temps réel à l'infrastructure FiveM.</p>
+                <span class="text-indigo-400 font-bold uppercase tracking-widest text-xs">Infrastructure & Performance</span>
+                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-3">Statistiques en Direct</h2>
+                <p class="text-gray-400 max-w-xl mx-auto text-sm">Données synchronisées en temps réel avec notre serveur dédié.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
-                    <div class="text-emerald-400 text-4xl font-black mb-2">En Ligne</div>
-                    <div class="text-gray-400 text-sm">État du Serveur</div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl text-center relative overflow-hidden group hover:border-emerald-500/50 transition">
+                    <div class="absolute top-0 right-0 p-4 text-emerald-500/10 text-6xl group-hover:scale-110 transition"><i class="fa-solid fa-server"></i></div>
+                    <div class="text-emerald-400 text-3xl font-black mb-1 flex items-center justify-center">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping mr-2.5"></span> En Ligne
+                    </div>
+                    <div class="text-gray-400 text-sm font-medium">État des serveurs de jeu</div>
                 </div>
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
-                    <div class="text-indigo-400 text-4xl font-black mb-2">42 / 64</div>
-                    <div class="text-gray-400 text-sm">Joueurs Connectés</div>
+                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl text-center relative overflow-hidden group hover:border-indigo-500/50 transition">
+                    <div class="absolute top-0 right-0 p-4 text-indigo-500/10 text-6xl group-hover:scale-110 transition"><i class="fa-solid fa-users"></i></div>
+                    <div class="text-indigo-400 text-3xl font-black mb-1">42 / 64</div>
+                    <div class="text-gray-400 text-sm font-medium">Joueurs connectés actuellement</div>
                 </div>
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
-                    <div class="text-purple-400 text-4xl font-black mb-2">0.3ms</div>
-                    <div class="text-gray-400 text-sm">Latence / Optimisation</div>
+                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl text-center relative overflow-hidden group hover:border-purple-500/50 transition">
+                    <div class="absolute top-0 right-0 p-4 text-purple-500/10 text-6xl group-hover:scale-110 transition"><i class="fa-solid fa-gauge-high"></i></div>
+                    <div class="text-purple-400 text-3xl font-black mb-1">0.3ms</div>
+                    <div class="text-gray-400 text-sm font-medium">Latence / Optimisation scripts</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Boutique VIP Section -->
-    <section id="boutique" class="py-24 bg-[#0e1320] border-t border-gray-800/50">
+    <section id="boutique" class="py-24 bg-[#090f1d] border-t border-gray-800/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <span class="text-indigo-400 font-bold uppercase tracking-wider text-sm">Boutique Officielle (Tebex)</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4">Boutique VIP</h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Soutenez le projet et obtenez des avantages crédités automatiquement sur votre personnage.</p>
+                <span class="text-indigo-400 font-bold uppercase tracking-widest text-xs">Boutique Officielle (Tebex)</span>
+                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-3">Boutique VIP</h2>
+                <p class="text-gray-400 max-w-xl mx-auto text-sm">Soutenez le serveur et profitez d'avantages exclusifs crédités instantanément.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-500 transition">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <!-- VIP Bronze -->
+                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-500 transition shadow-xl">
                     <div>
-                        <h3 class="text-2xl font-black mb-4">VIP Bronze</h3>
-                        <div class="text-3xl font-extrabold mb-6">4.99 €</div>
-                        <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Véhicule exclusif (Classe C)</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> +50 000 $ en banque</li>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">VIP Bronze</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-800 text-gray-300 font-semibold">Mensuel</span>
+                        </div>
+                        <div class="text-3xl font-black mb-6 text-indigo-300">4.99 €</div>
+                        <ul class="space-y-3.5 text-sm text-gray-300 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Véhicule exclusif (Classe C)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> +50 000 $ en banque</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Rôle Discord dédié</li>
                         </ul>
                     </div>
-                    <button onclick="addToCart('VIP Bronze', 4.99)" class="w-full py-3 rounded-xl bg-gray-800 hover:bg-indigo-600 text-white font-bold transition">Ajouter au panier</button>
+                    <button onclick="addToCart('VIP Bronze', 4.99)" class="w-full py-3.5 rounded-xl bg-cardhover hover:bg-indigo-600 text-white font-bold transition shadow-md">
+                        Ajouter au panier
+                    </button>
                 </div>
+
+                <!-- VIP Argent (Populaire) -->
                 <div class="bg-cardbg border-2 border-indigo-500 rounded-2xl p-8 flex flex-col justify-between shadow-2xl relative transform md:-translate-y-2">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Populaire</div>
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-lg">Le plus populaire</div>
                     <div>
-                        <h3 class="text-2xl font-black mb-4">VIP Argent</h3>
-                        <div class="text-3xl font-extrabold mb-6">9.99 €</div>
-                        <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Véhicule Sport exclusif</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> +150 000 $ en banque</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Priorité file d'attente (Queue)</li>
+                        <div class="flex justify-between items-center mb-4 pt-2">
+                            <h3 class="text-xl font-bold">VIP Argent</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 font-semibold">Mensuel</span>
+                        </div>
+                        <div class="text-3xl font-black mb-6 text-indigo-300">9.99 €</div>
+                        <ul class="space-y-3.5 text-sm text-gray-300 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Véhicule Sport exclusif</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> +150 000 $ en banque</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Priorité file d'attente (Queue)</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Rôle Discord Argent</li>
                         </ul>
                     </div>
-                    <button onclick="addToCart('VIP Argent', 9.99)" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30">Ajouter au panier</button>
+                    <button onclick="addToCart('VIP Argent', 9.99)" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30">
+                        Ajouter au panier
+                    </button>
                 </div>
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-500 transition">
+
+                <!-- VIP Or -->
+                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-500 transition shadow-xl">
                     <div>
-                        <h3 class="text-2xl font-black mb-4">VIP Or</h3>
-                        <div class="text-3xl font-extrabold mb-6">19.99 €</div>
-                        <ul class="space-y-3 text-sm text-gray-300 mb-8">
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> Véhicule Supercar exclusif</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-2"></i> +350 000 $ en banque</li>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">VIP Or</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-800 text-gray-300 font-semibold">Mensuel</span>
+                        </div>
+                        <div class="text-3xl font-black mb-6 text-indigo-300">19.99 €</div>
+                        <ul class="space-y-3.5 text-sm text-gray-300 mb-8">
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Véhicule Supercar exclusif</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> +350 000 $ en banque</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Priorité maximale file d'attente</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Garage VIP étendu</li>
                         </ul>
                     </div>
-                    <button onclick="addToCart('VIP Or', 19.99)" class="w-full py-3 rounded-xl bg-gray-800 hover:bg-indigo-600 text-white font-bold transition">Ajouter au panier</button>
+                    <button onclick="addToCart('VIP Or', 19.99)" class="w-full py-3.5 rounded-xl bg-cardhover hover:bg-indigo-600 text-white font-bold transition shadow-md">
+                        Ajouter au panier
+                    </button>
                 </div>
             </div>
         </div>
@@ -205,46 +242,51 @@
     <section id="support" class="py-24 bg-darkbg border-t border-gray-800/50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <span class="text-indigo-400 font-bold uppercase tracking-wider text-sm">Assistance Communautaire</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-4">Support & Tickets</h2>
-                <p class="text-gray-400 max-w-xl mx-auto">Un problème en jeu ou avec l'attribution d'un article boutique ? Ouvrez un ticket.</p>
+                <span class="text-indigo-400 font-bold uppercase tracking-widest text-xs">Assistance Communautaire</span>
+                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-3">Support & Tickets</h2>
+                <p class="text-gray-400 max-w-xl mx-auto text-sm">Un souci technique, un bug en jeu ou un problème lié à la boutique ? Créez un ticket.</p>
             </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <!-- Formulaire ticket -->
                 <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
                     <h3 class="text-xl font-bold mb-6 flex items-center">
                         <i class="fa-solid fa-headset text-indigo-400 mr-3"></i> Ouvrir un ticket
                     </h3>
                     <form id="ticket-form" onsubmit="createTicket(event)" class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-1">Licence FiveM / Nom</label>
-                            <input type="text" id="ticket-name" required placeholder="ex: license:abc123xyz" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-700 text-white focus:outline-none focus:border-indigo-500 transition">
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Licence FiveM ou Identifiant Discord</label>
+                            <input type="text" id="ticket-name" required placeholder="ex: license:abc123xyz" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-1">Motif</label>
-                            <select id="ticket-subject" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-700 text-white focus:outline-none focus:border-indigo-500 transition">
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Motif de la demande</label>
+                            <select id="ticket-subject" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm">
                                 <option value="Problème boutique (Tebex)">Problème boutique (Tebex)</option>
-                                <option value="Bug en jeu / Crash">Bug en jeu / Crash</option>
-                                <option value="Plainte / Staff">Plainte / Staff</option>
+                                <option value="Bug en jeu / Crash serveur">Bug en jeu / Crash serveur</option>
+                                <option value="Plainte / Signalement joueur">Plainte / Signalement joueur</option>
+                                <option value="Autre demande">Autre demande</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-1">Description</label>
-                            <textarea id="ticket-message" rows="4" required placeholder="Détails de votre demande..." class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-700 text-white focus:outline-none focus:border-indigo-500 transition"></textarea>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Description détaillée</label>
+                            <textarea id="ticket-message" rows="4" required placeholder="Expliquez votre situation clairement..." class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm"></textarea>
                         </div>
-                        <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white shadow-lg shadow-indigo-600/30 transition">
-                            Envoyer la demande
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white shadow-lg shadow-indigo-600/30 transition text-sm">
+                            Envoyer le ticket au staff
                         </button>
                     </form>
                 </div>
+
+                <!-- Liste des tickets joueur -->
                 <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
                     <div class="flex items-center justify-between mb-6">
                         <h3 class="text-xl font-bold flex items-center">
-                            <i class="fa-solid fa-ticket text-indigo-400 mr-3"></i> Vos Tickets
+                            <i class="fa-solid fa-ticket text-indigo-400 mr-3"></i> Vos Tickets Soumis
                         </h3>
-                        <span id="ticket-count" class="px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold">0 actif</span>
+                        <span id="ticket-count" class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold">0 actif</span>
                     </div>
-                    <div id="tickets-list" class="space-y-4 max-h-[350px] overflow-y-auto pr-2">
-                        <p id="no-tickets" class="text-gray-500 text-center py-12">Aucun ticket en cours.</p>
+                    <div id="tickets-list" class="space-y-4 max-h-[380px] overflow-y-auto pr-1">
+                        <p id="no-tickets" class="text-gray-500 text-center py-16 text-sm">Aucun ticket en cours pour l'instant.</p>
                     </div>
                 </div>
             </div>
@@ -252,40 +294,41 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#080c14] border-t border-gray-800/80 py-12">
+    <footer class="bg-[#04060b] border-t border-gray-800/80 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
                 <span class="text-lg font-black tracking-wider text-white">NOM DU SERVEUR</span>
-                <p class="text-sm text-gray-500 mt-1">Serveur FiveM Roleplay indépendant. Non affilié à Take-Two Interactive.</p>
+                <p class="text-xs text-gray-500 mt-1">Serveur Roleplay FiveM indépendant. Non affilié à Rockstar Games ou Take-Two Interactive.</p>
             </div>
-            <div class="flex space-x-6 text-gray-400">
-                <a href="https://discord.gg/votreinvite" target="_blank" class="hover:text-indigo-400 text-xl transition"><i class="fa-brands fa-discord"></i></a>
+            <div class="flex space-x-6 text-gray-400 text-lg">
+                <a href="https://discord.gg/votreinvite" target="_blank" class="hover:text-indigo-400 transition" title="Discord"><i class="fa-brands fa-discord"></i></a>
+                <a href="admin.html" class="hover:text-indigo-400 transition" title="Panel Staff"><i class="fa-solid fa-shield-halved"></i></a>
             </div>
         </div>
     </footer>
 
-    <!-- Panier VIP -->
+    <!-- Panier VIP Slide-over -->
     <div id="cart-modal" class="fixed inset-0 z-50 overflow-hidden hidden">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onclick="closeCart()"></div>
         <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
             <div class="w-screen max-w-md bg-cardbg border-l border-gray-800 p-6 flex flex-col justify-between shadow-2xl relative">
                 <div>
                     <div class="flex items-center justify-between pb-4 border-b border-gray-800">
-                        <h3 class="text-xl font-bold flex items-center space-x-2">
+                        <h3 class="text-lg font-bold flex items-center space-x-2">
                             <i class="fa-solid fa-cart-shopping text-indigo-400 mr-2"></i> Panier Boutique
                         </h3>
-                        <button onclick="closeCart()" class="text-gray-400 hover:text-white p-2"><i class="fa-solid fa-xmark text-xl"></i></button>
+                        <button onclick="closeCart()" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
                     </div>
-                    <div id="cart-items" class="py-6 space-y-4 max-h-[50vh] overflow-y-auto">
-                        <p class="text-gray-500 text-center py-8">Votre panier est vide.</p>
+                    <div id="cart-items" class="py-6 space-y-3 max-h-[50vh] overflow-y-auto">
+                        <p class="text-gray-500 text-center py-8 text-sm">Votre panier est vide.</p>
                     </div>
                 </div>
                 <div class="border-t border-gray-800 pt-4">
-                    <div class="flex justify-between items-center mb-4 text-lg font-bold">
-                        <span>Total :</span>
+                    <div class="flex justify-between items-center mb-4 text-base font-bold">
+                        <span>Total estimé :</span>
                         <span id="cart-total" class="text-indigo-400 text-2xl font-black">0.00 €</span>
                     </div>
-                    <a href="https://votre-boutique.tebex.io" target="_blank" class="block text-center w-full py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30">
+                    <a href="https://votre-boutique.tebex.io" target="_blank" class="block text-center w-full py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30 text-sm">
                         Procéder au paiement (Tebex)
                     </a>
                 </div>
@@ -293,7 +336,7 @@
         </div>
     </div>
 
-    <!-- Script Site -->
+    <!-- Script principal du site -->
     <script>
         let cart = [];
         function openCart() { document.getElementById('cart-modal').classList.remove('hidden'); }
@@ -317,7 +360,7 @@
             container.innerHTML = '';
             if (cart.length === 0) {
                 badge.classList.add('hidden');
-                container.innerHTML = '<p class="text-gray-500 text-center py-8">Votre panier est vide.</p>';
+                container.innerHTML = '<p class="text-gray-500 text-center py-8 text-sm">Votre panier est vide.</p>';
                 total.textContent = '0.00 €';
                 return;
             }
@@ -327,8 +370,8 @@
             cart.forEach((item, idx) => {
                 sum += item.price;
                 const div = document.createElement('div');
-                div.className = 'flex items-center justify-between bg-darkbg p-4 rounded-xl border border-gray-800';
-                div.innerHTML = `<div><h4 class="font-bold text-sm">${item.name}</h4><p class="text-xs text-gray-400">${item.price} €</p></div><button onclick="removeFromCart(${idx})" class="text-red-400"><i class="fa-solid fa-trash"></i></button>`;
+                div.className = 'flex items-center justify-between bg-darkbg p-3.5 rounded-xl border border-gray-800';
+                div.innerHTML = `<div><h4 class="font-bold text-sm text-white">${item.name}</h4><p class="text-xs text-gray-400">${item.price} €</p></div><button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-300 p-2"><i class="fa-solid fa-trash text-sm"></i></button>`;
                 container.appendChild(div);
             });
             total.textContent = sum.toFixed(2) + ' €';
@@ -338,10 +381,11 @@
         let isMaintenanceActive = JSON.parse(localStorage.getItem('fivem_maintenance')) || false;
 
         function checkMaintenanceState() {
+            const screen = document.getElementById('maintenance-screen');
             if (isMaintenanceActive) {
-                document.getElementById('maintenance-screen').classList.remove('hidden');
+                screen.classList.remove('hidden');
             } else {
-                document.getElementById('maintenance-screen').classList.add('hidden');
+                screen.classList.add('hidden');
             }
         }
 
@@ -350,13 +394,13 @@
             const name = document.getElementById('ticket-name').value;
             const subject = document.getElementById('ticket-subject').value;
             const message = document.getElementById('ticket-message').value;
-            const date = new Date().toLocaleDateString('fr-FR');
+            const date = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
 
             tickets.unshift({ name, subject, message, date, status: 'En attente' });
             localStorage.setItem('fivem_tickets', JSON.stringify(tickets));
             document.getElementById('ticket-form').reset();
             renderTickets();
-            alert("Ticket créé avec succès !");
+            alert("Votre ticket a été transmis avec succès à l'équipe administrative !");
         }
 
         function renderTickets() {
@@ -366,13 +410,20 @@
             count.textContent = tickets.length + (tickets.length > 1 ? ' actifs' : ' actif');
 
             if (tickets.length === 0) {
-                list.innerHTML = '<p class="text-gray-500 text-center py-12">Aucun ticket en cours.</p>';
+                list.innerHTML = '<p class="text-gray-500 text-center py-16 text-sm">Aucun ticket en cours pour l'instant.</p>';
                 return;
             }
-            tickets.forEach((t, i) => {
+            tickets.forEach((t) => {
                 const div = document.createElement('div');
                 div.className = 'bg-darkbg p-4 rounded-xl border border-gray-800 space-y-2';
-                div.innerHTML = `<div class="flex justify-between"><span class="text-xs font-bold text-indigo-400">${t.subject}</span><span class="text-xs text-gray-500">${t.date}</span></div><div class="text-sm font-semibold">${t.name}</div><p class="text-xs text-gray-400">${t.message}</p>`;
+                div.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400">${t.subject}</span>
+                        <span class="text-[11px] text-gray-500">${t.date}</span>
+                    </div>
+                    <div class="text-xs font-bold text-gray-300">${t.name}</div>
+                    <p class="text-xs text-gray-400 leading-relaxed">${t.message}</p>
+                `;
                 list.appendChild(div);
             });
         }
