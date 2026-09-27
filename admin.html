@@ -81,15 +81,40 @@
                 </div>
             </div>
 
-            <!-- 2. GESTION DE LA BANNIÈRE D'ANNONCE -->
+            <!-- 2. GESTION DES THÈMES & ANIMATIONS (DONT CHANTIER) -->
             <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5">
+                <h2 class="text-sm font-black uppercase tracking-wider text-amber-400 flex items-center">
+                    <i class="fa-solid fa-palette mr-2"></i> Choix du Style & Thème du Site
+                </h2>
+                <p class="text-xs text-gray-400">Sélectionne le design et les animations appliqués en direct sur le site :</p>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="adminSetTheme('default')" class="p-3 rounded-xl bg-darkbg border border-gray-800 hover:border-indigo-500 text-xs font-bold text-left flex items-center transition">
+                        <i class="fa-solid fa-moon text-indigo-400 mr-2"></i> Classique
+                    </button>
+                    <button onclick="adminSetTheme('chantier')" class="p-3 rounded-xl bg-darkbg border border-amber-500/50 hover:border-amber-500 text-xs font-bold text-left flex items-center transition text-amber-300">
+                        <i class="fa-solid fa-person-digging mr-2"></i> Chantier 🚧
+                    </button>
+                    <button onclick="adminSetTheme('gaming')" class="p-3 rounded-xl bg-darkbg border border-gray-800 hover:border-red-500 text-xs font-bold text-left flex items-center transition">
+                        <i class="fa-solid fa-gamepad text-red-400 mr-2"></i> Gaming
+                    </button>
+                    <button onclick="adminSetTheme('chill')" class="p-3 rounded-xl bg-darkbg border border-gray-800 hover:border-sky-500 text-xs font-bold text-left flex items-center transition">
+                        <i class="fa-solid fa-mug-hot text-sky-400 mr-2"></i> Chill
+                    </button>
+                    <button onclick="adminSetTheme('neon')" class="p-3 rounded-xl bg-darkbg border border-gray-800 hover:border-rose-500 text-xs font-bold text-left flex items-center transition col-span-2">
+                        <i class="fa-solid fa-bolt text-rose-400 mr-2"></i> Néon / Cyberpunk
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. GESTION DE LA BANNIÈRE D'ANNONCE -->
+            <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5 md:col-span-2">
                 <h2 class="text-sm font-black uppercase tracking-wider text-purple-400 flex items-center">
                     <i class="fa-solid fa-bullhorn mr-2"></i> Bannière d'Annonce Globale
                 </h2>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-400 mb-1">Message de l'annonce</label>
-                        <textarea id="admin-announcement-input" rows="3" placeholder="Ex: Recrutements LSPD ouverts sur le Discord !" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-purple-500"></textarea>
+                        <textarea id="admin-announcement-input" rows="2" placeholder="Ex: Recrutements LSPD ouverts sur le Discord !" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-purple-500"></textarea>
                     </div>
                     <div class="flex gap-2">
                         <button onclick="saveAnnouncement()" class="flex-grow py-2.5 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold rounded-xl transition">Publier la bannière</button>
@@ -98,7 +123,7 @@
                 </div>
             </div>
 
-            <!-- 3. MODULE BIBLIOTHÈQUE MUSICALE WEB (ADMIN) -->
+            <!-- 4. MODULE BIBLIOTHÈQUE MUSICALE WEB (ADMIN) -->
             <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl shadow-xl space-y-5 md:col-span-2">
                 <h2 class="text-sm font-black uppercase tracking-wider text-emerald-400 flex items-center">
                     <i class="fa-solid fa-compact-disc mr-2"></i> Ambiance Musicale & Bibliothèque Web
@@ -173,6 +198,15 @@
                 localStorage.setItem('fivem_server_name', name);
                 alert("✅ Nom du serveur mis à jour !");
             }
+        }
+
+        function adminSetTheme(themeName) {
+            if(themeName === 'default') {
+                localStorage.removeItem('site_theme');
+            } else {
+                localStorage.setItem('site_theme', themeName);
+            }
+            alert("🎨 Thème '" + themeName.toUpperCase() + "' appliqué sur le site !");
         }
 
         function toggleMaintenance(checkbox) {
