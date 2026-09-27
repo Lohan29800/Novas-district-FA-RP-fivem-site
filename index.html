@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NomDuServeur - Vitrine & Support FiveM</title>
+    <title>NomDuServeur - Serveur FiveM RP Inédit</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -26,399 +26,189 @@
 </head>
 <body class="bg-darkbg text-gray-100 font-sans antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col justify-between">
 
-    <!-- Header / Navbar -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#070a13]/90 backdrop-blur-md border-b border-gray-800/80">
+    <!-- BANNIÈRE D'ANNONCE DYNAMIQUE (Contrôlée depuis le Panel Admin) -->
+    <div id="site-announcement-banner" class="hidden bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-600 text-white text-xs py-2 px-4 text-center font-bold sticky top-0 z-50 shadow-lg flex items-center justify-center space-x-2">
+        <i class="fa-solid fa-bullhorn animate-bounce"></i>
+        <span id="announcement-text-content">Chargement de l'annonce...</span>
+        <button onclick="closeAnnouncement()" class="ml-4 opacity-80 hover:opacity-100"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-[#070a13]/90 backdrop-blur-md border-b border-gray-800/85">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <button onclick="switchTab('accueil')" class="flex items-center space-x-3 group text-left focus:outline-none">
+            <a href="index.html" class="flex items-center space-x-3 group focus:outline-none">
                 <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition">
                     <i class="fa-solid fa-gamepad text-white text-lg"></i>
                 </div>
                 <div>
                     <span class="text-xl font-black tracking-wider bg-gradient-to-r from-white via-indigo-200 to-indigo-400 bg-clip-text text-transparent block">NOMDU<span class="text-indigo-400">SERVEUR</span></span>
-                    <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold block -mt-1"><span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping mr-1"></span> Vitrine & Support</span>
+                    <span id="header-server-status" class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold block -mt-1">● Serveur En Ligne</span>
                 </div>
-            </button>
-            
-            <!-- Menu de Navigation -->
-            <nav class="hidden md:flex items-center space-x-2 font-medium text-sm bg-cardbg/80 border border-gray-800 p-1.5 rounded-2xl shadow-inner">
-                <button onclick="switchTab('accueil')" id="nav-accueil" class="nav-btn px-5 py-2 rounded-xl transition text-white bg-indigo-600 font-bold shadow-md">
-                    <i class="fa-solid fa-house mr-2 text-xs"></i> Accueil
-                </button>
-                <button onclick="switchTab('presentation')" id="nav-presentation" class="nav-btn px-5 py-2 rounded-xl transition text-gray-400 hover:text-white hover:bg-cardhover">
-                    <i class="fa-solid fa-server mr-2 text-xs"></i> Présentation
-                </button>
-                <button onclick="switchTab('vip')" id="nav-vip" class="nav-btn px-5 py-2 rounded-xl transition text-gray-400 hover:text-white hover:bg-cardhover">
-                    <i class="fa-solid fa-store mr-2 text-xs"></i> Tarifs VIP
-                </button>
-                <button onclick="switchTab('support')" id="nav-support" class="nav-btn px-5 py-2 rounded-xl transition text-gray-400 hover:text-white hover:bg-cardhover">
-                    <i class="fa-solid fa-headset mr-2 text-xs"></i> Support
-                </button>
-                <!-- Lien vers le fichier séparé admin.html -->
-                <a href="admin.html" class="px-4 py-2 rounded-xl transition text-indigo-400 hover:text-indigo-300 hover:bg-indigo-600/10 font-bold flex items-center text-sm">
-                    <i class="fa-solid fa-shield-halved mr-1.5 text-xs"></i> Panel Admin
-                </a>
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-gray-300">
+                <a href="#accueil" class="hover:text-indigo-400 transition">Accueil</a>
+                <a href="#presentation" class="hover:text-indigo-400 transition">Le Serveur</a>
+                <a href="#features" class="hover:text-indigo-400 transition">Fonctionnalités</a>
+                <a href="#support" class="hover:text-indigo-400 transition">Support</a>
             </nav>
-
-            <!-- Actions Navbar -->
             <div class="flex items-center space-x-3">
-                <button onclick="openCart()" class="relative p-3 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 transition text-gray-300 hover:text-white group" title="Panier Boutique">
-                    <i class="fa-solid fa-cart-shopping group-hover:scale-110 transition"></i>
-                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-indigo-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold hidden shadow-lg shadow-indigo-600/50">0</span>
-                </button>
-                <a href="fivem://connect/cni.tonserveur.fr" class="hidden sm:inline-flex items-center px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold shadow-lg shadow-indigo-600/30 transition transform hover:-translate-y-0.5 text-sm">
-                    <i class="fa-solid fa-play mr-2 text-xs"></i> Jouer
+                <a href="fivem://connect/IP_DU_SERVEUR" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 transition flex items-center">
+                    <i class="fa-solid fa-play mr-2"></i> Rejoindre
+                </a>
+                <!-- Lien discret vers le panel admin -->
+                <a href="admin.html" title="Panel Admin" class="w-9 h-9 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 flex items-center justify-center text-gray-400 hover:text-white transition">
+                    <i class="fa-solid fa-lock text-xs"></i>
                 </a>
             </div>
-        </div>
-        <!-- Menu Mobile -->
-        <div class="md:hidden flex items-center justify-around bg-cardbg border-t border-gray-800 py-2.5 px-2 text-xs font-semibold">
-            <button onclick="switchTab('accueil')" class="mobile-nav text-indigo-400"><i class="fa-solid fa-house block text-base mb-0.5"></i>Accueil</button>
-            <button onclick="switchTab('presentation')" class="mobile-nav text-gray-400"><i class="fa-solid fa-server block text-base mb-0.5"></i>Infos</button>
-            <button onclick="switchTab('vip')" class="mobile-nav text-gray-400"><i class="fa-solid fa-store block text-base mb-0.5"></i>Boutique</button>
-            <button onclick="switchTab('support')" class="mobile-nav text-gray-400"><i class="fa-solid fa-headset block text-base mb-0.5"></i>Support</button>
-            <a href="admin.html" class="mobile-nav text-indigo-400 text-center"><i class="fa-solid fa-shield-halved block text-base mb-0.5"></i>Admin</a>
         </div>
     </header>
 
-    <!-- CONTENEUR PRINCIPAL DES ONGLETS -->
-    <main class="flex-grow pt-28 pb-16">
-
-        <!-- ONGLET 1 : ACCUEIL -->
-        <div id="tab-accueil" class="tab-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center relative">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-            
-            <div class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs sm:text-sm font-semibold mb-6 shadow-inner">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2"></span> Nouvelle Saison • Économie Équilibrée & Illégale Avancée
+    <!-- SECTION ACCUEIL (HERO) -->
+    <main class="flex-grow">
+        <section id="accueil" class="relative pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+            <div class="absolute inset-0 -z-10 flex items-center justify-center opacity-20 pointer-events-none">
+                <div class="w-[500px] h-[500px] bg-indigo-600/30 rounded-full blur-3xl"></div>
             </div>
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-6 leading-tight">
-                Vivez Votre Légende sur <br><span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">NomDuServeur RP</span>
+            
+            <span class="px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold inline-block mb-6 uppercase tracking-widest">
+                <i class="fa-solid fa-star mr-1.5 text-amber-400"></i> Le meilleur du Roleplay Francophone
+            </span>
+            
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight max-w-4xl mx-auto leading-tight">
+                Plongez dans l'expérience <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 bg-clip-text text-transparent">Roleplay Ultime</span> sur FiveM
             </h1>
-            <p class="max-w-2xl mx-auto text-base sm:text-lg text-gray-400 mb-10 leading-relaxed">
-                Rejoignez une communauté passionnée. Entreprises dynamiques, forces de l'ordre rigoureuses, scripts exclusifs et staff ultra-réactif.
+            
+            <p class="text-gray-400 text-sm sm:text-base max-w-2xl mx-auto mt-6">
+                Économie réaliste, gangs uniques, forces de l'ordre actives, entreprises inédites et un staff à l'écoute. Créez votre propre histoire dès aujourd'hui.
             </p>
             
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
-                <a href="fivem://connect/cni.tonserveur.fr" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-xl shadow-indigo-600/30 transition flex items-center justify-center space-x-3 text-base">
-                    <i class="fa-solid fa-bolt text-amber-300"></i>
-                    <span>Lancer FiveM Directement</span>
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="fivem://connect/IP_DU_SERVEUR" class="px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white text-sm shadow-xl shadow-indigo-600/30 transition flex items-center">
+                    <i class="fa-solid fa-server mr-2"></i> Se connecter au serveur
                 </a>
-                <button onclick="switchTab('vip')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cardbg hover:bg-cardhover text-white font-bold border border-gray-800 transition flex items-center justify-center space-x-3 text-base shadow-lg">
-                    <i class="fa-solid fa-store text-indigo-400"></i>
-                    <span>Voir les Tarifs VIP</span>
-                </button>
-                <a href="admin.html" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-300 font-bold border border-indigo-500/30 transition flex items-center justify-center space-x-3 text-base shadow-lg">
-                    <i class="fa-solid fa-shield-halved text-indigo-400"></i>
-                    <span>Panel Staff (Connexion)</span>
+                <a href="https://discord.gg/tondiscord" target="_blank" class="px-6 py-3.5 rounded-xl bg-cardbg border border-gray-800 hover:border-gray-700 font-bold text-gray-300 hover:text-white text-sm transition flex items-center">
+                    <i class="fa-brands fa-discord mr-2 text-indigo-400"></i> Rejoindre le Discord
                 </a>
             </div>
-        </div>
+        </section>
 
-        <!-- ONGLET 2 : PRÉSENTATION -->
-        <div id="tab-presentation" class="tab-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden">
-            <div class="text-center mb-16">
-                <span class="text-indigo-400 font-bold uppercase tracking-widest text-xs">Infrastructure & Performance</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-3">Présentation du Serveur</h2>
-                <p class="text-gray-400 max-w-xl mx-auto text-sm">Données synchronisées en temps réel avec notre infrastructure dédiée.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl text-center relative overflow-hidden group hover:border-emerald-500/50 transition">
-                    <div class="absolute top-0 right-0 p-4 text-emerald-500/10 text-6xl group-hover:scale-110 transition"><i class="fa-solid fa-server"></i></div>
-                    <div class="text-emerald-400 text-3xl font-black mb-1 flex items-center justify-center">
-                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping mr-2.5"></span> En Ligne
+        <!-- SECTION PRÉSENTATION FIVEM -->
+        <section id="presentation" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-scale-balanced"></i>
                     </div>
-                    <div class="text-gray-400 text-sm font-medium">État des serveurs de jeu</div>
+                    <h3 class="text-lg font-black">Économie Équilibrée</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Une économie travaillée pour valoriser chaque métier légal comme illégal, avec des business gérés par de vrais joueurs.</p>
                 </div>
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl text-center relative overflow-hidden group hover:border-indigo-500/50 transition">
-                    <div class="absolute top-0 right-0 p-4 text-indigo-500/10 text-6xl group-hover:scale-110 transition"><i class="fa-solid fa-users"></i></div>
-                    <div class="text-indigo-400 text-3xl font-black mb-1">42 / 64</div>
-                    <div class="text-gray-400 text-sm font-medium">Joueurs connectés actuellement</div>
-                </div>
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl text-center relative overflow-hidden group hover:border-purple-500/50 transition">
-                    <div class="absolute top-0 right-0 p-4 text-purple-500/10 text-6xl group-hover:scale-110 transition"><i class="fa-solid fa-gauge-high"></i></div>
-                    <div class="text-purple-400 text-3xl font-black mb-1">0.3ms</div>
-                    <div class="text-gray-400 text-sm font-medium">Latence / Optimisation scripts</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ONGLET 3 : TARIFS VIP -->
-        <div id="tab-vip" class="tab-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden">
-            <div class="text-center mb-16">
-                <span class="text-indigo-400 font-bold uppercase tracking-widest text-xs">Boutique Officielle</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-3">Tarifs VIP</h2>
-                <p class="text-gray-400 max-w-xl mx-auto text-sm">Soutenez le serveur et profitez d'avantages exclusifs crédités automatiquement.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-                <!-- VIP Bronze -->
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-500 transition shadow-xl">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xl font-bold">VIP Bronze</h3>
-                            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-800 text-gray-300 font-semibold">Mensuel</span>
-                        </div>
-                        <div class="text-3xl font-black mb-6 text-indigo-300">4.99 €</div>
-                        <ul class="space-y-3.5 text-sm text-gray-300 mb-8">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Véhicule exclusif (Classe C)</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> +50 000 $ en banque</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Rôle Discord dédié</li>
-                        </ul>
+                <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-masks-theater"></i>
                     </div>
-                    <button onclick="addToCart('VIP Bronze', 4.99)" class="w-full py-3.5 rounded-xl bg-cardhover hover:bg-indigo-600 text-white font-bold transition shadow-md text-sm">
-                        Ajouter au panier
-                    </button>
+                    <h3 class="text-lg font-black">Illegal Immersif</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Système de drug-runs, braquages exclusifs, blanchiment d'argent et guerres de territoires scriptées sur mesure.</p>
                 </div>
-
-                <!-- VIP Argent -->
-                <div class="bg-cardbg border-2 border-indigo-500 rounded-2xl p-8 flex flex-col justify-between shadow-2xl relative transform md:-translate-y-2">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-lg">Le plus populaire</div>
-                    <div>
-                        <div class="flex justify-between items-center mb-4 pt-2">
-                            <h3 class="text-xl font-bold">VIP Argent</h3>
-                            <span class="text-xs px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 font-semibold">Mensuel</span>
-                        </div>
-                        <div class="text-3xl font-black mb-6 text-indigo-300">9.99 €</div>
-                        <ul class="space-y-3.5 text-sm text-gray-300 mb-8">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Véhicule Sport exclusif</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> +150 000 $ en banque</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Priorité file d'attente (Queue)</li>
-                        </ul>
+                <div class="bg-cardbg border border-gray-800 p-6 rounded-2xl space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-shield-halved"></i>
                     </div>
-                    <button onclick="addToCart('VIP Argent', 9.99)" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg text-sm">
-                        Ajouter au panier
-                    </button>
-                </div>
-
-                <!-- VIP Or -->
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 flex flex-col justify-between hover:border-indigo-500 transition shadow-xl">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xl font-bold">VIP Or</h3>
-                            <span class="text-xs px-2.5 py-1 rounded-full bg-gray-800 text-gray-300 font-semibold">Mensuel</span>
-                        </div>
-                        <div class="text-3xl font-black mb-6 text-indigo-300">19.99 €</div>
-                        <ul class="space-y-3.5 text-sm text-gray-300 mb-8">
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Véhicule Supercar exclusif</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> +350 000 $ en banque</li>
-                            <li class="flex items-center"><i class="fa-solid fa-check text-emerald-400 mr-3"></i> Priorité maximale file d'attente</li>
-                        </ul>
-                    </div>
-                    <button onclick="addToCart('VIP Or', 19.99)" class="w-full py-3.5 rounded-xl bg-cardhover hover:bg-indigo-600 text-white font-bold transition shadow-md text-sm">
-                        Ajouter au panier
-                    </button>
+                    <h3 class="text-lg font-black">Légal & Secours</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Recrutements ouverts pour la LSPD, le LSSM (EMS) et les mécaniciens avec des équipements exclusifs.</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- ONGLET 4 : SUPPORT -->
-        <div id="tab-support" class="tab-content max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 hidden">
-            <div class="text-center mb-16">
-                <span class="text-indigo-400 font-bold uppercase tracking-widest text-xs">Assistance Communautaire</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-3">Support & Tickets</h2>
-                <p class="text-gray-400 max-w-xl mx-auto text-sm">Un souci technique, un bug en jeu ou un problème lié à la boutique ? Créez un ticket ci-dessous.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
-                    <h3 class="text-xl font-bold mb-6 flex items-center">
-                        <i class="fa-solid fa-headset text-indigo-400 mr-3"></i> Ouvrir un ticket
-                    </h3>
-                    <form id="ticket-form" onsubmit="createTicket(event)" class="space-y-4">
+        <!-- SECTION SUPPORT / TICKETS (Reliée directement au Panel Admin) -->
+        <section id="support" class="py-16 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+            <div class="bg-cardbg border border-gray-800 p-8 rounded-2xl shadow-xl space-y-6">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl font-black">Besoin d'aide ? Contactez le Support</h2>
+                    <p class="text-xs text-gray-400">Envoyez un ticket directement depuis le site, il apparaîtra instantanément dans le panel administrateur.</p>
+                </div>
+                <form onsubmit="sendSupportTicket(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Licence FiveM ou Identifiant</label>
-                            <input type="text" id="ticket-name" required placeholder="ex: license:abc123xyz" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm">
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Votre Nom / Pseudo</label>
+                            <input type="text" id="ticket-name" required placeholder="Ex: John Doe" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Motif de la demande</label>
-                            <select id="ticket-subject" class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm">
-                                <option value="Problème boutique (Tebex)">Problème boutique (Tebex)</option>
-                                <option value="Bug en jeu / Crash serveur">Bug en jeu / Crash serveur</option>
-                                <option value="Plainte / Signalement joueur">Plainte / Signalement joueur</option>
-                                <option value="Autre demande">Autre demande</option>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Sujet</label>
+                            <select id="ticket-subject" class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition">
+                                <option value="Problème en jeu">Problème en jeu / Bug</option>
+                                <option value="Question Boutique">Question Boutique / Don</option>
+                                <option value="Demande Whitelist">Demande Whitelist / Autre</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Description détaillée</label>
-                            <textarea id="ticket-message" rows="4" required placeholder="Expliquez votre situation clairement..." class="w-full px-4 py-3 rounded-xl bg-darkbg border border-gray-800 text-white focus:outline-none focus:border-indigo-500 transition text-sm"></textarea>
-                        </div>
-                        <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white shadow-lg shadow-indigo-600/30 transition text-sm">
-                            Envoyer le ticket au support
-                        </button>
-                    </form>
-                </div>
-
-                <div class="bg-cardbg border border-gray-800 rounded-2xl p-8 shadow-xl">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-bold flex items-center">
-                            <i class="fa-solid fa-ticket text-indigo-400 mr-3"></i> Vos Tickets Soumis
-                        </h3>
-                        <span id="ticket-count" class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-bold">0 actif</span>
                     </div>
-                    <div id="tickets-list" class="space-y-4 max-h-[380px] overflow-y-auto pr-1">
-                        <p id="no-tickets" class="text-gray-500 text-center py-16 text-sm">Aucun ticket en cours pour l'instant.</p>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">Message</label>
+                        <textarea id="ticket-message" rows="4" required placeholder="Décrivez votre problème en détail..." class="w-full px-4 py-2.5 rounded-xl bg-darkbg border border-gray-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition"></textarea>
                     </div>
-                </div>
+                    <button type="submit" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-bold text-white text-xs shadow-lg transition">
+                        Envoyer le ticket au Staff
+                    </button>
+                </form>
             </div>
-        </div>
-
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#04060b] border-t border-gray-800/80 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-            <div>
-                <span class="text-sm font-black tracking-wider text-white">NOM DU SERVEUR</span>
-                <p class="text-xs text-gray-500 mt-1">Serveur Roleplay FiveM indépendant. Non affilié à Rockstar Games.</p>
-            </div>
-            <div class="flex space-x-6 text-gray-400 text-base">
-                <button onclick="switchTab('accueil')" class="hover:text-indigo-400 transition">Accueil</button>
-                <button onclick="switchTab('presentation')" class="hover:text-indigo-400 transition">Présentation</button>
-                <button onclick="switchTab('vip')" class="hover:text-indigo-400 transition">Tarifs VIP</button>
-                <button onclick="switchTab('support')" class="hover:text-indigo-400 transition">Support</button>
-                <a href="admin.html" class="hover:text-indigo-400 transition"><i class="fa-solid fa-shield-halved"></i></a>
-            </div>
-        </div>
+    <!-- FOOTER -->
+    <footer class="bg-[#04060b] border-t border-gray-800/85 py-8 text-center text-xs text-gray-500 space-y-2">
+        <p>NomDuServeur - Tous droits réservés. Non affilié à Rockstar Games.</p>
+        <p class="text-[10px]">Développé pour la communauté FiveM</p>
     </footer>
 
-    <!-- Panier Boutique Slide-over -->
-    <div id="cart-modal" class="fixed inset-0 z-50 overflow-hidden hidden">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity" onclick="closeCart()"></div>
-        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
-            <div class="w-screen max-w-md bg-cardbg border-l border-gray-800 p-6 flex flex-col justify-between shadow-2xl relative">
-                <div>
-                    <div class="flex items-center justify-between pb-4 border-b border-gray-800">
-                        <h3 class="text-lg font-bold flex items-center space-x-2">
-                            <i class="fa-solid fa-cart-shopping text-indigo-400 mr-2"></i> Panier Boutique
-                        </h3>
-                        <button onclick="closeCart()" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition"><i class="fa-solid fa-xmark text-lg"></i></button>
-                    </div>
-                    <div id="cart-items" class="py-6 space-y-3 max-h-[50vh] overflow-y-auto">
-                        <p class="text-gray-500 text-center py-8 text-sm">Votre panier est vide.</p>
-                    </div>
-                </div>
-                <div class="border-t border-gray-800 pt-4">
-                    <div class="flex justify-between items-center mb-4 text-base font-bold">
-                        <span>Total estimé :</span>
-                        <span id="cart-total" class="text-indigo-400 text-2xl font-black">0.00 €</span>
-                    </div>
-                    <a href="https://votre-boutique.tebex.io" target="_blank" class="block text-center w-full py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition shadow-lg shadow-indigo-600/30 text-sm">
-                        Procéder au paiement (Tebex)
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Script de navigation et gestion de la boutique/tickets -->
+    <!-- SCRIPT DE SYNCHRONISATION AVEC LE PANEL ADMIN -->
     <script>
-        function switchTab(tabId) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.add('hidden'));
-
-            const target = document.getElementById('tab-' + tabId);
-            if (target) {
-                target.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Vérifier l'état de la maintenance et les annonces globales au chargement de la page
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. Gestion du mode maintenance activé depuis le panel admin
+            const isMaintenance = localStorage.getItem('server_maintenance') === 'true';
+            const statusHeader = document.getElementById('header-server-status');
+            if(isMaintenance) {
+                statusHeader.textContent = "● En Maintenance";
+                statusHeader.className = "text-[10px] uppercase tracking-widest text-amber-400 font-bold block -mt-1";
             }
 
-            const navButtons = document.querySelectorAll('.nav-btn');
-            navButtons.forEach(btn => {
-                btn.className = "nav-btn px-5 py-2 rounded-xl transition text-gray-400 hover:text-white hover:bg-cardhover text-sm";
-            });
-
-            const activeNav = document.getElementById('nav-' + tabId);
-            if (activeNav) {
-                activeNav.className = "nav-btn px-5 py-2 rounded-xl transition text-white bg-indigo-600 font-bold shadow-md text-sm";
+            // 2. Gestion de la bannière d'annonce globale
+            const savedAnnouncement = localStorage.getItem('site_announcement');
+            const banner = document.getElementById('site-announcement-banner');
+            const textContent = document.getElementById('announcement-text-content');
+            if(savedAnnouncement) {
+                textContent.textContent = savedAnnouncement;
+                banner.classList.remove('hidden');
             }
+        });
+
+        function closeAnnouncement() {
+            document.getElementById('site-announcement-banner').classList.add('hidden');
         }
 
-        // Panier
-        let cart = [];
-        function openCart() { document.getElementById('cart-modal').classList.remove('hidden'); }
-        function closeCart() { document.getElementById('cart-modal').classList.add('hidden'); }
-
-        function addToCart(name, price) {
-            cart.push({ name, price });
-            updateCartUI();
-            openCart();
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const container = document.getElementById('cart-items');
-            const badge = document.getElementById('cart-badge');
-            const total = document.getElementById('cart-total');
-            container.innerHTML = '';
-            if (cart.length === 0) {
-                badge.classList.add('hidden');
-                container.innerHTML = '<p class="text-gray-500 text-center py-8 text-sm">Votre panier est vide.</p>';
-                total.textContent = '0.00 €';
-                return;
-            }
-            badge.classList.remove('hidden');
-            badge.textContent = cart.length;
-            let sum = 0;
-            cart.forEach((item, idx) => {
-                sum += item.price;
-                const div = document.createElement('div');
-                div.className = 'flex items-center justify-between bg-darkbg p-3.5 rounded-xl border border-gray-800';
-                div.innerHTML = `<div><h4 class="font-bold text-sm text-white">${item.name}</h4><p class="text-xs text-gray-400">${item.price} €</p></div><button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-300 p-2"><i class="fa-solid fa-trash text-sm"></i></button>`;
-                container.appendChild(div);
-            });
-            total.textContent = sum.toFixed(2) + ' €';
-        }
-
-        // Système de tickets locaux
-        let tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
-
-        function createTicket(e) {
+        // Envoi d'un ticket de support depuis le site vers le localStorage du panel admin
+        function sendSupportTicket(e) {
             e.preventDefault();
-            const name = document.getElementById('ticket-name').value;
+            const name = document.getElementById('ticket-name').value.trim();
             const subject = document.getElementById('ticket-subject').value;
-            const message = document.getElementById('ticket-message').value;
-            const date = new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
-
-            tickets.unshift({ name, subject, message, date });
-            localStorage.setItem('fivem_tickets', JSON.stringify(tickets));
+            const message = document.getElementById('ticket-message').value.trim();
             
-            document.getElementById('ticket-form').reset();
-            renderTickets();
-            alert("Votre ticket a été transmis avec succès au support !");
-        }
+            const now = new Date();
+            const dateStr = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
-        function renderTickets() {
-            const list = document.getElementById('tickets-list');
-            const count = document.getElementById('ticket-count');
-            if(!list) return;
-            list.innerHTML = '';
-            count.textContent = tickets.length + (tickets.length > 1 ? ' actifs' : ' actif');
+            const newTicket = {
+                name: name,
+                subject: subject,
+                message: message,
+                date: dateStr
+            };
 
-            if (tickets.length === 0) {
-                list.innerHTML = '<p class="text-gray-500 text-center py-16 text-sm">Aucun ticket en cours pour l\'instant.</p>';
-                return;
-            }
-            tickets.forEach((t) => {
-                const div = document.createElement('div');
-                div.className = 'bg-darkbg p-4 rounded-xl border border-gray-800 space-y-2';
-                div.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400">${t.subject}</span>
-                        <span class="text-[11px] text-gray-500">${t.date}</span>
-                    </div>
-                    <div class="text-xs font-bold text-gray-300">${t.name}</div>
-                    <p class="text-xs text-gray-400 leading-relaxed">${t.message}</p>
-                `;
-                list.appendChild(div);
-            });
-        }
+            let tickets = JSON.parse(localStorage.getItem('fivem_tickets')) || [];
+            tickets.push(newTicket);
+            localStorage.setItem('fivem_tickets', JSON.stringify(tickets));
 
-        window.onload = function() {
-            renderTickets();
+            alert("✅ Votre ticket a bien été envoyé au staff ! Il a été transmis dans le panel d'administration.");
+            document.getElementById('ticket-name').value = '';
+            document.getElementById('ticket-message').value = '';
         }
     </script>
 </body>
